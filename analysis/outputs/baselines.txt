@@ -1,0 +1,51 @@
+BASELINES FOR TARGETS  (clean = the numbers to set targets against)
+                                                                                raw     clean    change
+Cleveland: posted shifts                                                     41,040    38,152    -2,888
+Cleveland: booked shifts                                                     24,795    23,949      -846
+Cleveland: late-failure rate (booked shifts with >=1 NCNS or <24h cancel)    0.1481    0.1332   -0.0149
+Cleveland: NCNS rate (booked shifts with >=1 NCNS)                           0.0505    0.0403   -0.0103
+Cleveland: weekly booked shifts (mean)                                        1,368     1,321  -46.8333
+Cleveland: weekly late-failure rate, mean                                    0.1450    0.1312   -0.0139
+Cleveland: weekly late-failure rate, SD                                      0.0194    0.0149   -0.0045
+Cleveland: weekly NCNS rate, mean                                            0.0487    0.0391   -0.0096
+Cleveland: weekly NCNS rate, SD                                              0.0108    0.0076   -0.0032
+Cleveland: fill rate (worked / posted, not deleted)                          0.6002    0.6339    0.0337
+Cleveland: worked after a <24h cancel (refill)                               0.2857    0.3070    0.0213
+Cleveland: worked after a <4h cancel                                         0.2350    0.2557    0.0207
+Cleveland: worked after NCNS                                                 0.0295    0.0301    0.0006
+Cleveland: shifts left unfilled after a late failure (4 mo)                   2,647     2,196      -451
+Cleveland: revenue lost to late failures, per year                         $545,239  $448,765  $-96,474
+Cleveland: lost billings as % of worked billings                             0.1495    0.1250   -0.0245
+Cleveland: smallest detectable change, 4 wks/arm (relative)                  0.1300    0.1402    0.0102
+Cleveland: smallest detectable change, 8 wks/arm (relative)                  0.0919    0.0991    0.0072
+All markets: bookings                                                       122,479   122,362      -117
+All markets: late-failure rate, bookings active at T-24h                     0.1124    0.1114   -0.0010
+All markets: late-cancel rate (<24h), bookings active at T-24h               0.0768    0.0763   -0.0005
+All markets: NCNS rate, bookings active at T-24h                             0.0356    0.0351   -0.0005
+All markets: share of bookings ending 1_NCNS                                 0.0334    0.0329   -0.0005
+All markets: share of bookings ending 2_<4h                                  0.0320    0.0317   -0.0003
+All markets: share of bookings ending 3_4-24h                                0.0379    0.0377   -0.0002
+All markets: share of bookings ending 4_24-72h                               0.0212    0.0211   -0.0001
+All markets: share of bookings ending 5_>72h                                 0.0880    0.0877   -0.0003
+All markets: re-booked before start after a <4h cancel                       0.1695    0.1699    0.0004
+All markets: re-booked before start after a 4-24h cancel                     0.3752    0.3760    0.0008
+All markets: re-booked before start after a >72h cancel                      0.8249    0.8250    0.0001
+
+EXCLUSION LOG
+   table                                                                          rule  rows_before  rows_dropped
+bookings                                                                  no worker id       127005           140
+bookings                          claimed after the shift started (retroactive record)       126865          3321
+bookings                                    exact duplicate (all fields but action id)       123544             9
+ cancels                                                                  no worker id        78073           191
+ cancels     lead time contradicts the action (cancel after start / NCNS before start)        77882             3
+ cancels                                    exact duplicate (all fields but action id)        77879             1
+ cancels same shift+worker logged as both cancel and NCNS: keep the first-logged event        77878           288
+  shifts                                                            missing start time        41040             1
+  shifts       role 'NURSE': Charge always 0 and never worked (legacy/test shift type)        41039          1907
+  shifts       non-core roles with <35 shifts each (caregiver, med tech, PT, med aide)        39132            55
+  shifts                            impossible length (<=0h or >24h) or paid hours <=0        39077            97
+  shifts                                  posted after it started (retroactive record)        38980           229
+  shifts                          verified with no worker attached (ambiguous outcome)        38751           123
+  shifts     shock day (late-fail rate > 5 robust SD above median day): ['2022-01-17']        38628           476
+bookings                                 shift removed by a Cleveland shift rule above       123535           167
+ cancels                                 shift removed by a Cleveland shift rule above        77590           643

@@ -1,0 +1,326 @@
+\subsection{Execution: the plan and the levers}
+
+\begin{center}\small
+\captionof{table}{Plan (week 1 = approval)}
+\begin{tabularx}{\textwidth}{@{}lLP{0.21\textwidth}P{0.25\textwidth}@{}}
+\toprule
+Weeks & Job to be done & Owner & Done when \\
+\midrule
+1--3 & Build the trigger and deadline service; the confirmation flow (text, push, call, consent, quiet hours); the release
+flow (soft release, rate floor, role-specific audience) & Data eng.; Professional app + Product; Marketplace eng. &
+Matches Appendix D on last month's data; end-to-end tests pass; test shift reposted in \lthan{}1 minute \\
+2--3 & Write copy, FAQs and support scripts & Professional Ops; Facility Success & Copy approved \\
+4--5 & Shadow run (compute checks, send nothing); randomization; dashboard & Data & Within 5 points of plan; dashboard
+live \\
+6--13 & Run the test, with a weekly guardrail review & Owner (me) & -- \\
+14 & Read out the results; go/no-go & Owner, then executive team & Decision recorded \\
+15+ & Roll out market by market; test premiums on released shifts & Owner & -- \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Levers to tune during the test}, with no new engineering:
+\begin{itemize}
+  \item \textbf{Who is checked:} widen if unchecked bookings still drive no-notice failures; narrow if checked workers
+  book less.
+  \item \textbf{Deadline:} earlier if drops still arrive after it; later if workers who would have come say ``no''.
+  \item \textbf{Reminders} (3 pushes + 1 call): add if workers show up unconfirmed; cut if opt-outs rise.
+  \item \textbf{Release on no reply} (soft): make firm if soft-released workers rarely turn up and wrongful releases stay
+  well under 2\%.
+\end{itemize}
+
+%======================================================================== 4
+\section{Why this, and not something else}
+
+\begin{center}\small
+\captionof{table}{Alternatives considered}
+\begin{tabularx}{\textwidth}{@{}P{0.24\textwidth}L@{}}
+\toprule
+Alternative & Why not first \\
+\midrule
+Stricter penalties or deactivation & No measurable deterrent at today's cut-offs. Deactivating the 56 Cleveland workers
+at the 2021 thresholds would remove 9.5\% of hours worked to cut lost revenue by about 11\%. \\
+Pay premiums on dropped shifts & Weak evidence: +2 points of refill per +10\% of pay ($p=0.08$). A 10\% premium breaks
+even only if refills rise from 31\% to about 56\%. Better tested later, on released shifts. \\
+A predictive risk score, or facility-focused fixes & A model did no better than the simple rule, and workers cannot
+contest a score. Facilities explain only 14\% of predictable risk. \\
+A paid standby pool & Pays for idle capacity. Releasing to a facility's regulars uses the existing bench at no cost. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Confirm-or-Release is the largest lever that neither removes supply nor pays for it. It reaches 77\% of late failures for
+roughly the price of a text message.
+
+\textbf{Counterarguments.}
+
+\textbf{``Recovering about 10\% of lost revenue is incremental.''} Revenue is the smallest part of the gain. The base
+case turns a quarter of NCNS, the most damaging failure, into advance notice. A facility told at 7pm can call in its own
+staff even if we don't refill, and late failures are linked to facility churn. Neither benefit is counted in the revenue
+figures.
+
+\textbf{``Professionals will feel policed, and we'll lose supply.''} Half of bookings are never touched, ``no'' carries
+no strike, and workers graduate after 5 clean bookings. Guardrails watch booking volume, including among new workers, who
+made 33\% of Dec--Jan bookings.
+
+\textbf{``We'll release people who meant to come,'' or ``they'll confirm and drop anyway.''} Releases on no reply are
+soft and capped at 2\% of checks. Confirming and then dropping leaves us no worse off than today, and costs proven
+status.
+
+\textbf{Limitations.} The data is observational, covers four months including the holidays, and has shift outcomes and
+roles only for Cleveland; RN samples are small. Booking histories start in August 2021, so some long-tenured workers look new. Above all, the central bet has no precedent in our data, which is why
+this is a test with a decision rule set in advance.
+
+%======================================================================== appendix
+\clearpage
+\appendix
+\renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\thefigure}{\Alph{section}\arabic{figure}}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+\counterwithin*{figure}{section}\counterwithin*{table}{section}
+\section*{Appendix}
+
+\section{Data and definitions}
+\textbf{Roles.} Only the Cleveland shift log records which role a shift asks for. CNAs, LVNs and RNs make up 95\% of
+postings and are the only roles analysed; the rest are removed in cleaning (below).
+
+\begin{center}\small\setlength{\tabcolsep}{4pt}
+\captionof{table}{Cleveland shift log by role, Oct 2021--Jan 2022}
+\begin{tabularx}{\textwidth}{@{}LR{1.2cm}R{1.4cm}R{1.1cm}R{1.4cm}R{1.4cm}R{1.8cm}R{1.2cm}R{1.4cm}R{1.1cm}@{}}
+\toprule
+Role & Shifts posted & Facilities & Workers & Median charge per hour & Cancelled by facility & Filled, of shifts not
+cancelled by facility & Share of billings & Kept after cleaning & Booked \\
+\midrule
+CNA & 24,662 & 61 & 670 & \$32 & 31\% & 73\% & 64\% & 24,007 & 18,140 \\
+LVN & 11,277 & 60 & 240 & \$47 & 39\% & 45\% & 27\% & 11,070 & 4,672 \\
+RN & 3,139 & 34 & 86 & \$65 & 37\% & 39\% & 9\% & 3,075 & 1,137 \\
+NURSE & 1,907 & 28 & 0 & \$0 & 43\% & 0\% & 0\% & Removed & --- \\
+Caregiver & 31 & 8 & 3 & \$30 & 42\% & 17\% & \lthan{}0.1\% & Removed & --- \\
+Medical Technician, PT, Medical Aide & 24 & 5 & 0 & \$7 & 50\% & 0\% & 0\% & Removed & --- \\
+\midrule
+\textbf{All roles} & \textbf{41,040} & \textbf{67} & \textbf{997} & \textbf{\$37} & \textbf{34\%} & \textbf{61\%} &
+\textbf{100\%} & \textbf{38,152} & \textbf{23,949} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+{\small\textit{Raw log except the last two columns. Workers are distinct professionals assigned to a shift. Charge is the
+hourly rate billed to the facility; at the 22\% take rate, professionals earn about 78\% of it (about \$25, \$37 and \$51
+an hour for CNAs, LVNs and RNs). Billings are charge $\times$ hours on worked shifts. Booked shifts (ones a professional
+ever booked) are the base for Table G1.}}
+
+Shifts that facilities still need go unfilled 55\% of the time for LVNs and 61\% for RNs, against 27\% for CNAs. That
+scarcity is what Section 2.4 builds on.
+
+\textbf{Cleaning.} Each rule is logged with the rows it removes.
+\begin{itemize}
+  \item \textbf{Cleveland shifts, 41,040 $\rightarrow$ 38,152.} Removed:
+  \begin{itemize}
+    \item 1,907 ``NURSE'' shifts (charge always zero, never worked; Table A1);
+    \item 476 shifts on 17 Jan 2022, a day whose late-failure rate was more than 5 robust standard deviations above
+    normal;
+    \item 229 shifts posted after they started;
+    \item 123 verified shifts with no worker;
+    \item 97 with impossible durations;
+    \item 55 in rare roles (caregiver, medical technician, PT, medical aide);
+    \item 1 with no start time.
+  \end{itemize}
+  \item \textbf{Bookings, 127,005 $\rightarrow$ 123,368; cancellations, 78,073 $\rightarrow$ 76,947.} Removed rows had no
+  worker, were logged after the shift started, were duplicates, or belonged to removed shifts. Where one booking was
+  logged as both a cancellation and an NCNS, I kept the first event.
+\end{itemize}
+Cleaning lowers Cleveland's late-failure rate from 14.8\% to 13.3\%. No conclusion changes on the raw data.
+
+\textbf{Booking cohort.} 122,362 bookings for shifts starting Oct 1--Nov 30, 2021, across all markets. Worker-history
+features use only events logged before the moment they describe. Rules were chosen on Nov 1--15 starts and tested on Nov
+16--30. Revenue is 22\% of charge $\times$ hours, and ``per year'' means four months of Cleveland data $\times$ 3.
+
+\section{Notice decides whether a shift is saved}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/fig_notice.pdf}
+\captionof{figure}{Cleveland shifts with a worker failure, Oct 2021--Jan 2022. Panel A: the share of shifts still
+worked, by the notice the worker gave. Panel B: revenue lost per year to shifts left unfilled, by failure type.}
+\end{center}
+
+\section{Penalties do not change behavior}
+I compared workers whose cancellation fell just inside a penalty cut-off with workers whose cancellation fell just
+outside it (regression discontinuity: local linear fit, triangular kernel, 95\% CIs clustered by worker).
+
+\begin{center}\small
+\captionof{table}{Effect of a heavier penalty on the worker's late failures in the next 30 days}
+\begin{tabularx}{\textwidth}{@{}LR{1.3cm}R{2.0cm}R{3.4cm}R{0.9cm}@{}}
+\toprule
+Cut-off compared (window) & Workers & Rate without the penalty & Effect (95\% CI) & $p$ \\
+\midrule
+Call-off (\lthan{}4h) vs standard cancellation ($\pm$1h) & 2,269 & 80.8\% & $-1.3$ pts ($-8.2$, $+5.7$) & 0.72 \\
+Call-off (\lthan{}4h) vs standard cancellation ($\pm$2h) & 4,606 & 80.4\% & $-0.5$ pts ($-5.4$, $+4.5$) & 0.86 \\
+Standard strike ($\le$72h) vs no strike ($\pm$4h) & 787 & 64.5\% & $-11.5$ pts ($-25.7$, $+2.7$) & 0.11 \\
+Standard strike ($\le$72h) vs no strike ($\pm$8h) & 1,469 & 65.7\% & $-10.4$ pts ($-21.0$, $+0.2$) & 0.055 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Balance checks pass: the two sides do not differ in late failures or bookings in the 14 and 30 days \emph{before} the
+cancellation.
+
+More evidence on penalties:
+\begin{itemize}
+  \item \textbf{No bunching.} Compare cancellations in the 30 minutes just after a cut-off (lighter penalty) with the 30
+  minutes just before. The ratio is 0.90 at 4h, 0.98 at 24h and 0.87 at 72h. Workers timing their drops to dodge
+  penalties would push it above 1.
+  \item \textbf{Workers keep booking.}
+  \begin{itemize}
+    \item 57\% of workers booked a new shift within 7 days of their first NCNS.
+    \item 73\% did so within 7 days of their second call-off.
+    \item Of the 1,444 workers who reached a deactivation threshold before Jan 15, 72\% were still booking more than a
+    week later. The case notes that some offences were excused.
+  \end{itemize}
+\end{itemize}
+
+\section{Who gets checked}
+\begin{center}\small
+\captionof{table}{Bookings still on the books 24h before start, Nov 2021, all markets}
+\begin{tabularx}{\textwidth}{@{}LR{1.1cm}R{1.2cm}R{1.2cm}R{1.2cm}R{1.2cm}R{2.0cm}@{}}
+\toprule
+Trigger & Checked & NCNS covered & Call-offs covered & 4--24h covered & All late covered & Late-failure rate, checked / not \\
+\midrule
+A.\ Not yet proven (\lthan{}5 past bookings, or late-failure rate $\ge$10\%) & 41\% & 67\% & 76\% & 68\% & 70\% & 19.6\% / 5.7\% \\
+B.\ Dropped another shift late in the last 48h & 9\% & 12\% & 22\% & 20\% & 18\% & 23.9\% / 10.3\% \\
+C.\ First shift at this facility & 18\% & 27\% & 27\% & 29\% & 28\% & 18.0\% / 10.0\% \\
+\textbf{A or B or C (proposal)} & \textbf{49\%} & \textbf{74\%} & \textbf{82\%} & \textbf{76\%} & \textbf{77\%} &
+\textbf{18.0\% / 5.1\%} \\
+A or B or C, Cleveland only & 55\% & 74\% & 82\% & 76\% & 78\% & 17.9\% / 6.3\% \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Out-of-time test of rule A} (chosen on Nov 1--15, scored on Nov 16--30). It flags 42\% of bookings and catches:
+\begin{itemize}
+  \item 69\% of NCNS;
+  \item 75\% of call-offs;
+  \item 69\% of 4--24h cancellations;
+  \item 71\% of all late failures.
+\end{itemize}
+As a benchmark, a logistic model on all 21 signals catches 64--72\% when flagging 35\% of bookings.
+
+\begin{center}\small
+\captionof{table}{Late-failure rate by group (test period)}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Group & Late-failure rate \\
+\midrule
+No history & 22.9\% \\
+1--4 past bookings, clean & 15.0\% \\
+1--4 past bookings, at least one failure & 25.2\% \\
+5+ past bookings, late-failure rate $\ge$10\% & 18.5\% \\
+Other established workers & 6.5\% \\
+20+ past bookings, clean & 2.1\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+An empirical-Bayes fit puts the point where a worker's own record outweighs the population average at about 5 bookings.
+That supports the 5-booking line.
+
+\section{When late failures happen, relative to the deadline}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/fig_deadlines.pdf}
+\captionof{figure}{Cleveland shifts with a late failure, by start window. Orange bars are failures that happen after the
+confirmation deadline; Confirm-or-Release could bring these forward to the deadline. ``If released at deadline'' is how
+often Cleveland shifts in the same window were worked after a drop with the deadline's notice ($\pm$2h).}
+\end{center}
+
+\section{Impact model and test size}
+\textbf{Impact model.}
+\begin{itemize}
+  \item \textbf{Shifts:} the 3,189 Cleveland shifts with a late failure. A failure is \emph{after the deadline} if it is
+  an NCNS, or a cancellation with less notice than its window's deadline gives. That covers 100\% of NCNS and call-offs,
+  and 53\% of 4--24h cancellations.
+  \item \textbf{Coverage:} the triggers' share of each failure type, from Appendix D (74\%, 82\%, 76\%).
+  \item \textbf{Gain per covered failure:}
+  \begin{itemize}
+    \item a surfaced failure gains the refill rate at the deadline minus its actual outcome;
+    \item a prevented failure gains one minus its actual outcome.
+  \end{itemize}
+  \item \textbf{Value:} gains are valued at 22\% of each shift's billings and multiplied by 3 for a year.
+  \item \textbf{Across markets:} Cleveland's results are divided by its 8.8\% share of Oct--Nov bookings.
+  \item \textbf{Costs:}
+  \begin{itemize}
+    \item \textbf{messages:} an assumed \$0.05 per check, for 39,759 checks a year in Cleveland;
+    \item \textbf{rate floor:} assumes Clipboard pays the full gap to the facility's usual rate on every released shift
+    that gets worked (an upper bound).
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\small
+\captionof{table}{Smallest detectable change (80\% power, 5\% two-sided), checked bookings, 8 weeks}
+\begin{tabularx}{\textwidth}{@{}LR{1.9cm}R{1.9cm}R{1.9cm}R{1.9cm}@{}}
+\toprule
+Metric (baseline; base-case change) & By booking: Cleveland & By booking: + 3 markets & By worker: Cleveland & By
+worker: + 3 markets \\
+\midrule
+Unfilled after a late failure (12.7\%; $-13\%$) & 22\% & \textbf{11\%} & 36\% & 18\% \\
+No-notice failures (11.4\%; $-34\%$) & 24\% & \textbf{12\%} & 35\% & 18\% \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Why randomize by booking: shifts booked by the same worker have correlated outcomes (intra-worker correlation 0.086 and
+0.063). Randomizing by worker would therefore multiply the variance by 2.65 for unfilled shifts and 2.21 for no-notice
+failures. Cleveland has 547 checked bookings a week.
+
+\section{Late failures by role and start window}
+Role sizes, pay and fill rates are in Table A1.
+
+\begin{center}\small
+\captionof{table}{Cleveland booked shifts, Oct 2021--Jan 2022}
+\begin{tabularx}{\textwidth}{@{}LR{1.3cm}R{1.3cm}R{1.1cm}R{1.2cm}R{1.5cm}R{1.4cm}R{1.6cm}@{}}
+\toprule
+Role, start window & Booked shifts & Late-failure rate & NCNS rate & Call-off rate & Share of all late failures & Share of
+lost revenue & Still worked after a late failure \\
+\midrule
+CNA, morning & 6,153 & 14.6\% & 5.5\% & 4.8\% & 28\% & 27\% & 16\% \\
+CNA, afternoon/evening & 7,566 & 13.8\% & 4.2\% & 6.3\% & 33\% & 27\% & 29\% \\
+CNA, night & 4,421 & 14.2\% & 3.8\% & 6.4\% & 20\% & 16\% & 28\% \\
+\textbf{CNA, all} & \textbf{18,140} & \textbf{14.2\%} & \textbf{4.5\%} & \textbf{5.8\%} & \textbf{80\%} & \textbf{70\%} &
+\textbf{24\%} \\
+LVN, morning & 1,622 & 11.9\% & 3.3\% & 3.1\% & 6\% & 10\% & 7\% \\
+LVN, afternoon/evening & 2,225 & 11.2\% & 2.5\% & 4.4\% & 8\% & 12\% & 15\% \\
+LVN, night & 825 & 13.9\% & 2.5\% & 4.6\% & 4\% & 5\% & 22\% \\
+\textbf{LVN, all} & \textbf{4,672} & \textbf{11.9\%} & \textbf{2.8\%} & \textbf{4.0\%} & \textbf{17\%} & \textbf{26\%} &
+\textbf{14\%} \\
+\textbf{RN, all} (65 late failures, too few to split) & \textbf{1,137} & \textbf{5.7\%} & \textbf{0.9\%} & \textbf{1.9\%}
+& \textbf{2\%} & \textbf{4\%} & \textbf{25\%} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{center}\small
+\captionof{table}{Refill, workers and checks by role}
+\begin{tabularx}{\textwidth}{@{}LR{3.0cm}R{3.0cm}R{3.0cm}@{}}
+\toprule
+ & CNA & LVN & RN \\
+\midrule
+Still worked after an NCNS & 3\% & 3\% & 10\% \\
+Still worked after a cancellation \lthan{}4h / 4--24h / 24--72h / \textgreater72h before start & 28 / 44 / 61 / 63\% &
+13 / 20 / 28 / 47\% & 18 / 33 / 30 / 39\% \\
+Late cancellations re-booked by another worker & 30\% & 20\% & 33\% \\
+Median time to re-book & 40 min & 2.5 h & 3.5 h \\
+Median same-role bench (workers who worked at the facility in the last 30 days) & 40 & 10 & 6 \\
+Still worked after a late cancellation, reposted below / at or above the facility's usual rate & 26\% / 37\% & 16\% /
+18\% & 12\% / 34\% \\
+Bookings checked / late failures covered (Oct--Nov) & 59\% / 78\% & 58\% / 82\% & 53\% / 78\% \\
+Late-failure risk on a first visit, vs a repeat visit & 1.5$\times$ & 2.1$\times$ & 1.0$\times$ \\
+Late-failure risk in the 48h after a late drop, vs otherwise & 2.1$\times$ & 2.5$\times$ & 6.4$\times$ \\
+Base-case gain per year: shifts / revenue (total 654 / \$42k, close to Table 5's 658 / \$44k) & 563 / \$33k & 83 / \$8k &
+8 / \$1k \\
+\bottomrule
+\end{tabularx}
+\end{center}
+{\small\textit{RN figures rest on small samples (65 late failures in four months), so the RN column is indicative only.}}
+
+\textbf{Refill model.} A logistic regression of whether a cancelled shift was still worked, on role, log notice, their
+interaction and start window. It is fit on 2,658 Cleveland cancellations with less than 72 hours' notice. At the same
+notice, morning shifts have 0.47 times the odds of afternoon/evening shifts ($p<0.001$), and LVN shifts have lower odds
+than CNA shifts ($p=0.004$).
+
+\end{document}

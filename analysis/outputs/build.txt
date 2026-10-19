@@ -1,0 +1,21 @@
+mode: clean
+== exclusion log
+   table                                                                          rule  rows_before  rows_dropped
+bookings                                                                  no worker id       127005           140
+bookings                          claimed after the shift started (retroactive record)       126865          3321
+bookings                                    exact duplicate (all fields but action id)       123544             9
+ cancels                                                                  no worker id        78073           191
+ cancels     lead time contradicts the action (cancel after start / NCNS before start)        77882             3
+ cancels                                    exact duplicate (all fields but action id)        77879             1
+ cancels same shift+worker logged as both cancel and NCNS: keep the first-logged event        77878           288
+  shifts                                                            missing start time        41040             1
+  shifts       role 'NURSE': Charge always 0 and never worked (legacy/test shift type)        41039          1907
+  shifts       non-core roles with <35 shifts each (caregiver, med tech, PT, med aide)        39132            55
+  shifts                            impossible length (<=0h or >24h) or paid hours <=0        39077            97
+  shifts                                  posted after it started (retroactive record)        38980           229
+  shifts                          verified with no worker attached (ambiguous outcome)        38751           123
+  shifts     shock day (late-fail rate > 5 robust SD above median day): ['2022-01-17']        38628           476
+bookings                                 shift removed by a Cleveland shift rule above       123535           167
+ cancels                                 shift removed by a Cleveland shift rule above        77590           643
+claims cohort: 122362  outcomes: {'kept': 96521, 'cancel': 21818, 'ncns': 4023}
+Cleveland shifts: 38152  states: {'worked': 15990, 'unfilled': 8752, 'deleted_unassigned': 8721, 'deleted_after_booked': 4206, 'assigned_unverified': 483}  ever_booked: 23949

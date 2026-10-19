@@ -1,0 +1,107 @@
+====================================================================================================
+Cleveland baseline (clean data): late-failure lost revenue $149,588 per 4 mo -> $448,765/yr; avg billings per lost shift $310
+P(shift ends unfilled | last failure band): {'1_NCNS': 0.938, '2_<4h': 0.656, '3_4-24h': 0.482, '4_24-72h': 0.21, '5_>72h': 0.06}
+P(shift ends worked   | last failure band): {'1_NCNS': 0.03, '2_<4h': 0.256, '3_4-24h': 0.374, '4_24-72h': 0.52, '5_>72h': 0.587}
+====================================================================================================
+A. BOOKING-TIME FLAGS  (all markets, 66,949 bookings for Nov starts; base late-fail rate 0.104)
+   share_harm = share of expected unfilled shifts from late failures; halve_seg_$yr = Cleveland-equivalent revenue if the segment's late failures were halved
+                                    bookings  share_bookings  late_fail_rate  ncns_rate   lift  share_late_fail  share_ncns  share_harm  halve_seg_$yr
+segment                                                                                                                                               
+first booking at facility              13338           0.199           0.162      0.050  1.808            0.310       0.309       0.309      69362.741
+booked <72h before start               17004           0.254           0.150      0.049  1.696            0.366       0.384       0.369      82795.745
+booked <24h before start                7001           0.105           0.146      0.052  1.463            0.146       0.168       0.150      33768.140
+worker account <30 days                11043           0.165           0.132      0.041  1.341            0.209       0.210       0.208      46748.429
+any of first-fac / <72h / new          30754           0.459           0.137      0.043  1.780            0.602       0.610       0.602     135023.731
+all three                               1420           0.021           0.206      0.062  2.021            0.042       0.041       0.042       9344.016
+no resolved history yet                 7175           0.107           0.165      0.048  1.706            0.170       0.158       0.166      37218.635
+prior NCNS >= 1                        16895           0.252           0.126      0.049  1.297            0.304       0.385       0.321      71987.374
+prior NCNS >= 2                         6302           0.094           0.150      0.069  1.505            0.135       0.201       0.148      33276.810
+prior call-offs (<4h) >= 2              7917           0.118           0.199      0.053  2.174            0.226       0.196       0.226      50683.855
+prior late-fail rate >=25% (n>=5)       4543           0.068           0.247      0.067  2.627            0.161       0.141       0.161      36018.792
+core: n>=10 & prior rate <5%           20742           0.310           0.038      0.013  0.282            0.112       0.127       0.114      25481.154
+heavy user: >=20 resolved bookings     28312           0.423           0.082      0.027  0.679            0.332       0.348       0.336      75285.882
+
+   Restrict segment entirely: change in harm (late-failure unfilled shifts) vs change in kept bookings, by replacement rate r
+                                    restrict_r0.25_harm_chg  restrict_r0.25_kept_chg  restrict_r0.5_harm_chg  restrict_r0.5_kept_chg  restrict_r0.75_harm_chg  restrict_r0.75_kept_chg
+segment                                                                                                                                                                               
+first booking at facility                            -0.266                   -0.134                  -0.223                  -0.083                   -0.180                   -0.033
+booked <72h before start                             -0.315                   -0.208                  -0.262                  -0.146                   -0.208                   -0.083
+booked <24h before start                             -0.126                   -0.089                  -0.101                  -0.063                   -0.076                   -0.037
+worker account <30 days                              -0.169                   -0.110                  -0.130                  -0.068                   -0.091                   -0.026
+any of first-fac / <72h / new                        -0.517                   -0.337                  -0.433                  -0.220                   -0.348                   -0.104
+all three                                            -0.036                   -0.015                  -0.031                  -0.010                   -0.026                   -0.005
+no resolved history yet                              -0.141                   -0.065                  -0.116                  -0.038                   -0.091                   -0.010
+prior NCNS >= 1                                      -0.264                   -0.186                  -0.206                  -0.123                   -0.149                   -0.059
+prior NCNS >= 2                                      -0.126                   -0.068                  -0.104                  -0.044                   -0.082                   -0.020
+prior call-offs (<4h) >= 2                           -0.200                   -0.073                  -0.174                  -0.043                   -0.148                   -0.013
+prior late-fail rate >=25% (n>=5)                    -0.145                   -0.039                  -0.130                  -0.021                   -0.115                   -0.004
+core: n>=10 & prior rate <5%                         -0.014                   -0.272                   0.085                  -0.198                    0.185                   -0.125
+heavy user: >=20 resolved bookings                   -0.214                   -0.339                  -0.092                  -0.236                    0.030                   -0.134
+
+   Overlap of the three booking-time flags
+                         bookings  late_fail_rate  late_fails  share_bookings  share_late_fail
+none                        36195           0.077        2779           0.541            0.398
+short72                      9853           0.119        1171           0.147            0.168
+new30                        6083           0.101         615           0.091            0.088
+first_fac                    5607           0.130         729           0.084            0.104
+first_fac+short72            4251           0.198         841           0.063            0.120
+first_fac+new30              2060           0.147         303           0.031            0.043
+short72+new30                1480           0.170         251           0.022            0.036
+first_fac+short72+new30      1420           0.206         293           0.021            0.042
+====================================================================================================
+B. WORKER GROUPS (Cleveland; defined on Oct-Nov, measured Dec-Jan: 17,356 bookings, 9,886 worked shifts)
+                                                   workers  share_bookings  late_fail_rate  share_late_fail  share_ncns  share_hours_worked  share_lost_rev
+group                                                                                                                                                      
+2+ NCNS in Oct-Nov                                      54           0.114           0.172            0.164       0.199               0.088           0.171
+3+ NCNS or 4+ call-offs (2021 deactivation level)       56           0.129           0.184            0.200       0.180               0.095           0.175
+late-fail rate >=30% (>=3 bookings)                     45           0.049           0.252            0.104       0.098               0.036           0.112
+core: >=10 bookings & rate <5%                          96           0.186           0.052            0.080       0.092               0.225           0.084
+low volume in Oct-Nov (<5 bookings)                     96           0.087           0.110            0.081       0.084               0.087           0.078
+new in Dec-Jan (no Oct-Nov activity)                   515           0.327           0.144            0.394       0.396               0.326           0.397
+
+   Exclude group in Dec-Jan: change in worked shifts vs change in late-failure lost revenue, by replacement rate r
+                                                   exclude_r0.25_worked_chg  exclude_r0.25_lostrev_chg  exclude_r0.5_worked_chg  exclude_r0.5_lostrev_chg  exclude_r0.75_worked_chg  exclude_r0.75_lostrev_chg
+group                                                                                                                                                                                                         
+2+ NCNS in Oct-Nov                                                   -0.061                     -0.144                   -0.032                    -0.117                    -0.003                     -0.091
+3+ NCNS or 4+ call-offs (2021 deactivation level)                    -0.063                     -0.144                   -0.030                    -0.114                     0.004                     -0.083
+late-fail rate >=30% (>=3 bookings)                                  -0.024                     -0.101                   -0.012                    -0.089                     0.001                     -0.078
+core: >=10 bookings & rate <5%                                       -0.176                     -0.032                   -0.131                     0.021                    -0.087                      0.073
+low volume in Oct-Nov (<5 bookings)                                  -0.064                     -0.056                   -0.043                    -0.034                    -0.021                     -0.012
+new in Dec-Jan (no Oct-Nov activity)                                 -0.251                     -0.324                   -0.170                    -0.251                    -0.088                     -0.178
+====================================================================================================
+C. TIMING LEVERS (Cleveland): convert a share of failures in one band to earlier notice
+                             move  converted  failures_in_band  unfilled_from  unfilled_to  shifts_saved_4mo  rev_saved_yr  share_of_base
+NCNS -> any notice (<4h call-off)       0.10               964          0.938        0.656            27.202      5558.863          0.012
+NCNS -> any notice (<4h call-off)       0.25               964          0.938        0.656            68.005     13897.157          0.031
+NCNS -> any notice (<4h call-off)       0.50               964          0.938        0.656           136.010     27794.313          0.062
+              <4h -> 4-24h notice       0.10              1263          0.656        0.482            21.882      4471.693          0.010
+              <4h -> 4-24h notice       0.25              1263          0.656        0.482            54.705     11179.233          0.025
+              <4h -> 4-24h notice       0.50              1263          0.656        0.482           109.410     22358.465          0.050
+           4-24h -> 24-72h notice       0.10               962          0.482        0.210            26.182      5350.532          0.012
+           4-24h -> 24-72h notice       0.25               962          0.482        0.210            65.456     13376.330          0.030
+           4-24h -> 24-72h notice       0.50               962          0.482        0.210           130.912     26752.659          0.060
+             <4h -> 24-72h notice       0.10              1263          0.656        0.210            56.257     11496.352          0.026
+             <4h -> 24-72h notice       0.25              1263          0.656        0.210           140.641     28740.879          0.064
+             <4h -> 24-72h notice       0.50              1263          0.656        0.210           281.283     57481.759          0.128
+====================================================================================================
+D. SHIFT ATTRIBUTES (Cleveland booked shifts). Refill lever: raise worked-after-late-cancel to 0.359 (rate seen when pay >10% above norm)
+                         booked  late_fail_rate  share_late_fail  share_lost_rev  late_cancels  worked_after_late_cancel  refill_to_target_shifts_4mo  refill_to_target_rev_yr
+segment                                                                                                                                                                       
+AM shift                   8039           0.137            0.344           0.379           711                     0.215                      102.092                20722.054
+NOC shift                  7425           0.127            0.295           0.302           705                     0.370                        0.000                    0.000
+PM shift                   7929           0.137            0.341           0.301           772                     0.334                       18.977                 3500.618
+CNA                       18140           0.142            0.805           0.700          1743                     0.341                       30.351                 5385.183
+LVN                        4672           0.119            0.175           0.262           427                     0.171                       80.198                23241.628
+RN                         1137           0.057            0.020           0.037            55                     0.273                        4.733                 1779.718
+Sun/Mon start              6865           0.153            0.330           0.342           712                     0.288                       50.450                10243.214
+shift <8h                  1413           0.156            0.069           0.029           163                     0.325                        5.481                  581.683
+pay below facility norm    5384           0.141            0.238           0.195           567                     0.229                       73.427                12008.944
+pay >10% above norm        5249           0.148            0.243           0.290           524                     0.359                        0.000                    0.000
+   all late-cancelled shifts: current 0.307 -> 0.359: +115 worked shifts / 4 mo, ~$23,507/yr revenue at base pay
+   cost check: a 10% premium paid only on late-cancelled shifts that get worked at the target rate = ~$73,988/yr of extra billings (who funds it is a design choice)
+====================================================================================================
+E. FACILITIES (Cleveland). Overall Dec-Jan late-fail rate 0.136
+                                       facilities  share_booked_DecJan  late_fail_rate_DecJan  share_late_fail_DecJan  share_lost_rev_DecJan
+group                                                                                                                                       
+high-failure facilities (Oct-Nov z>2)           8                0.186                  0.157                   0.216                  0.176
+low-failure facilities (Oct-Nov z<-2)           6                0.190                  0.095                   0.133                  0.121

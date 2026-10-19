@@ -1,0 +1,60 @@
+===== Cleveland_shifts_logs (41040, 12)
+Shift ID                  str
+Worker ID                 str
+Facility ID               str
+Start          datetime64[us]
+Agent Req                 str
+End            datetime64[us]
+Deleted               float64
+Shift Type                str
+Created At     datetime64[us]
+Verified                 bool
+Charge                float64
+Time                  float64
+nulls:
+ Shift ID           0
+Worker ID      20035
+Facility ID        0
+Start              1
+Agent Req          0
+End                0
+Deleted        27058
+Shift Type         0
+Created At         0
+Verified           0
+Charge             0
+Time               0
+===== Booking_logs (127005, 7)
+Action ID                 str
+Created At     datetime64[us]
+Shift ID                  str
+Action                    str
+Worker ID                 str
+Facility ID               str
+Lead Time             float64
+nulls:
+ Action ID        0
+Created At       0
+Shift ID         0
+Action           0
+Worker ID      140
+Facility ID      0
+Lead Time        0
+===== Cancel_logs (78073, 8)
+Action ID                 str
+Created At     datetime64[us]
+Shift ID                  str
+Action                    str
+Worker ID                 str
+Start          datetime64[us]
+Facility ID               str
+Lead Time             float64
+nulls:
+ Action ID        0
+Created At       0
+Shift ID         0
+Action           0
+Worker ID      191
+Start            0
+Facility ID      0
+Lead Time        0

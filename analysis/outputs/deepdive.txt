@@ -1,0 +1,144 @@
+
+==============================================================================================================
+0. PRIZE MATRIX (Cleveland clean data, per year; a shift's outcome is attributed to its last failure)
+==============================================================================================================
+         events_per_yr  end_unfilled  worked  lost_rev_per_yr  prevent 10% of them  refill +10 pts  move 10% one band earlier
+failure                                                                                                                      
+1_NCNS            2892         0.938   0.030       183679.531            18367.953       19699.887                   5558.863
+2_<4h             3789         0.656   0.256       165607.200            16560.720       25810.122                   4471.693
+3_4-24h           2886         0.482   0.374        99478.328             9947.833       19659.016                   5350.532
+(value of one recovered shift = $68 revenue on $310 billings)
+
+==============================================================================================================
+P1. SICK STREAKS: is a worker's next shift at risk right after they drop one late?
+==============================================================================================================
+late drop in the 24h before    (measured at this booking's 24h mark): 4.953% of bookings | late-fail 0.268 vs 0.106 (2.5x) | <4h 0.102 vs 0.032 | NCNS 0.047 vs 0.034 | same worker: -2.0 pts [-3.8, -0.1]
+late drop 1-3 days before      (measured at this booking's 24h mark): 7.910% of bookings | late-fail 0.226 vs 0.105 (2.2x) | <4h 0.088 vs 0.031 | NCNS 0.047 vs 0.033 | same worker: -4.7 pts [-6.2, -3.2]
+late drop 3-7 days before      (measured at this booking's 24h mark): 14.272% of bookings | late-fail 0.199 vs 0.100 (2.0x) | <4h 0.077 vs 0.029 | NCNS 0.049 vs 0.032 | same worker: -5.4 pts [-6.5, -4.2]
+late-fail rate of the same workers' other bookings, by when their 24h mark falls relative to a late drop:
+             pairs  late_fail    lt4   ncns
+window                                     
+3-7d before   9930      0.216  0.094  0.030
+1-3d before   5543      0.247  0.106  0.042
+<1d before    1516      0.370  0.129  0.035
+<1d after     2875      0.274  0.105  0.048
+1-3d after    4930      0.235  0.094  0.046
+3-7d after    9955      0.218  0.090  0.047
+bookings starting within 48h after the same worker dropped another shift late: 6.9% of bookings, late-fail 0.271 vs 0.103; they hold 16.4% of late failures (18.2% of <4h, 9.1% of NCNS)
+late (<24h) cancels made within 60 min of another cancel by the same worker: 8.4%
+share of cancels made in a batch, by notice band: {'2_<4h': 0.101, '3_4-24h': 0.204, '4_24-72h': 0.466, '5_>72h': 0.565}
+
+==============================================================================================================
+P2. FIRST-VISIT RISK: concentrated at a few facilities, or everywhere?
+==============================================================================================================
+facilities with >=20 first-visit and >=20 repeat bookings: 159; first visits riskier at 76% of them; facility-level ratio quartiles {0.25: 1.06, 0.5: 1.56, 0.75: 2.32}
+worker with <20 past bookings    first visit 0.189 vs repeat 0.117 (1.6x)
+worker with 20+ past bookings    first visit 0.153 vs repeat 0.081 (1.9x)
+booked 1-3 days ahead            first visit 0.216 vs repeat 0.135
+booked 3+ days ahead             first visit 0.164 vs repeat 0.094
+first-visit risk by band:  {'1_NCNS': '0.053 vs 0.030', '2_<4h': '0.055 vs 0.032', '3_4-24h': '0.072 vs 0.038'}
+
+==============================================================================================================
+P3. WARNING SIGNS: what share of each drop type came from a booking that showed a sign at booking time?
+==============================================================================================================
+                                         all bookings   NCNS  <4h cancels  4-24h cancels
+past late-fail rate >=10% (5+ bookings)         0.247  0.386        0.456          0.353
+fewer than 5 past bookings                      0.241  0.325        0.335          0.373
+2+ past call-offs                               0.118  0.196        0.305          0.184
+2+ past NCNS                                    0.094  0.201        0.129          0.087
+first visit to this facility                    0.199  0.309        0.300          0.320
+booked 1-3 days ahead                           0.149  0.216        0.211          0.231
+dropped another shift late in last 72h          0.111  0.146        0.225          0.170
+ANY sign                                        0.656  0.863        0.892          0.854
+NO sign: failure rate                             NaN  0.013        0.010          0.017
+ANY sign: failure rate                            NaN  0.042        0.045          0.051
+
+==============================================================================================================
+P4. NCNS AND <4h DROPS BY SHIFT START TIME (Cleveland, booked shifts)
+==============================================================================================================
+           booked   ncns    lt4  any_late
+slot                                     
+0-4am           6  0.000  0.000     0.000
+5-9am        8065  0.048  0.043     0.135
+10am-1pm       95  0.032  0.105     0.200
+2-5pm        6473  0.040  0.062     0.139
+6-9pm        3822  0.031  0.046     0.109
+10pm-12am    5488  0.035  0.060     0.139
+
+==============================================================================================================
+R1. GOLDEN HOUR: how fast are late drops re-booked (all markets, Oct-Nov starts)?
+==============================================================================================================
+4-24h: 4,694 drops, re-booked before start 37.6%; of the re-bookings: <= 15 min 15%, <= 30 min 25%, <= 60 min 39%, <= 120 min 57%
+<4h: 3,961 drops, re-booked before start 17.0%; of the re-bookings: <= 15 min 29%, <= 30 min 50%, <= 60 min 74%, <= 120 min 93%
+4-24h drops: P(re-booked within 1h) 14.8%; P(re-booked later) 22.8%  -> share of all eventual re-bookings that happen in the first hour: 39%
+
+==============================================================================================================
+R2. WHO PICKS UP LATE DROPS, AND DO THEY SHOW UP?
+==============================================================================================================
+                                   n  regular at facility (not 1st visit)  also booked there same day  median past bookings  past late-fail rate (5+ bkgs)  then fails late themselves   NCNS
+group                                                                                                                                                                                        
+re-bookings of late drops       2388                                0.596                       0.118                  10.0                          0.110                       0.132  0.052
+other bookings made <24h out   10591                                0.603                       0.184                   8.0                          0.095                       0.142  0.050
+all bookings                  122362                                0.776                       0.201                   8.0                          0.085                       0.102  0.033
+
+==============================================================================================================
+R3. CLOCK TIME OF THE DROP vs CHANCE THE SHIFT IS STILL WORKED (Cleveland, local time)
+==============================================================================================================
+                         drops  worked
+last_band when                        
+2_<4h     midnight-5am      88   0.125
+          5-9am            260   0.162
+          9am-5pm          494   0.328
+          5-10pm           337   0.288
+          10pm-midnight     84   0.131
+3_4-24h   midnight-5am     124   0.323
+          5-9am            114   0.421
+          9am-5pm          397   0.408
+          5-10pm           244   0.385
+          10pm-midnight     83   0.193
+
+==============================================================================================================
+R4. BENCH DEPTH AND MARKET PRESSURE vs REFILL (Cleveland late drops)
+==============================================================================================================
+              drops  worked
+bench_q                    
+<=10 workers    173   0.168
+11-30           471   0.227
+31+            1581   0.346
+            drops  worked  shifts_that_day
+demand_q                                  
+quiet day     742   0.271          147.477
+normal day    744   0.372          209.085
+busy day      739   0.277          319.624
+
+==============================================================================================================
+R5. WHAT ONE EXTRA HOUR OF NOTICE IS WORTH (all markets re-booking curve)
+==============================================================================================================
+          size   mean  pts_per_extra_hour  $_per_extra_hour_per_drop
+lb                                                                  
+[0, 1)    1276  0.075                 NaN                        NaN
+[1, 2)    1155  0.168               9.273                      6.317
+[2, 3)     820  0.222               5.399                      3.677
+[3, 4)     710  0.283               6.115                      4.165
+[4, 6)    1088  0.347               4.227                      2.880
+[6, 8)     844  0.244              -5.122                     -3.489
+[8, 12)   1094  0.327               2.772                      1.888
+[12, 24)  1668  0.494               2.085                      1.420
+[24, 48)  1661  0.617               0.684                      0.466
+[48, 72)  1052  0.691               0.308                      0.210
+Cleveland: worked after a <24h drop, by notice and shift type
+             size                   mean              
+type     AM shift PM/NOC/custom AM shift PM/NOC/custom
+lb                                                    
+[0, 2)        295           533    0.156         0.221
+[2, 4)         57           378    0.158         0.397
+[4, 6)         50           221    0.120         0.475
+[6, 8)         65           105    0.123         0.257
+[8, 12)       101           103    0.267         0.447
+[12, 24)      143           174    0.399         0.483
+
+==============================================================================================================
+R6. NCNS RECOVERY CEILING (Cleveland): what if an NCNS became known at start, or 2h before?
+==============================================================================================================
+known at shift start (like a <1h cancel)  : worked 0.030 -> 0.165; if ALL NCNS converted: +390 shifts/yr = $26,551/yr; vs preventing all NCNS outright: $183,680/yr
+known ~2h before (like a 1-3h cancel)     : worked 0.030 -> 0.275; if ALL NCNS converted: +709 shifts/yr = $48,320/yr; vs preventing all NCNS outright: $183,680/yr

@@ -1,0 +1,82 @@
+
+========================================================================================================================
+A. DO PENALTIES CHANGE BEHAVIOUR?  regression discontinuity at the policy cut-offs
+========================================================================================================================
+effect = value just below the cut-off (heavier treatment) minus just above; 95% CI clustered by worker
+                                    cut-off  bandwidth_h                                            outcome    n  control_mean  effect     lo    hi     p
+    call-off (<4h) vs standard cancel (4h+)            1                                 late_fails_next30d 2269         3.555  -0.383 -1.066 0.300 0.272
+    call-off (<4h) vs standard cancel (4h+)            1                                   any_late_next30d 2269         0.808  -0.013 -0.082 0.057 0.719
+    call-off (<4h) vs standard cancel (4h+)            1                                       ncns_next30d 2269         0.625  -0.040 -0.245 0.165 0.699
+    call-off (<4h) vs standard cancel (4h+)            1                                   bookings_next14d  638        10.231   0.258 -3.243 3.759 0.885
+    call-off (<4h) vs standard cancel (4h+)            1 late_fails_prior30d  [balance check: should be ~0] 2269         2.608  -0.390 -0.943 0.162 0.166
+    call-off (<4h) vs standard cancel (4h+)            1   bookings_prior14d  [balance check: should be ~0]  638        11.897   0.027 -3.168 3.222 0.987
+    call-off (<4h) vs standard cancel (4h+)            2                                 late_fails_next30d 4606         3.490  -0.173 -0.670 0.325 0.496
+    call-off (<4h) vs standard cancel (4h+)            2                                   any_late_next30d 4606         0.804  -0.005 -0.054 0.045 0.857
+    call-off (<4h) vs standard cancel (4h+)            2                                       ncns_next30d 4606         0.626   0.001 -0.146 0.148 0.989
+    call-off (<4h) vs standard cancel (4h+)            2                                   bookings_next14d 1316        10.123   1.270 -1.476 4.016 0.365
+    call-off (<4h) vs standard cancel (4h+)            2 late_fails_prior30d  [balance check: should be ~0] 4606         2.548  -0.181 -0.601 0.238 0.397
+    call-off (<4h) vs standard cancel (4h+)            2   bookings_prior14d  [balance check: should be ~0] 1316        11.435  -0.861 -3.137 1.414 0.458
+standard strike (<=72h) vs no strike (>72h)            4                                 late_fails_next30d  787         1.932  -0.439 -1.124 0.245 0.209
+standard strike (<=72h) vs no strike (>72h)            4                                   any_late_next30d  787         0.645  -0.115 -0.257 0.027 0.112
+standard strike (<=72h) vs no strike (>72h)            4                                       ncns_next30d  787         0.560  -0.211 -0.542 0.120 0.212
+standard strike (<=72h) vs no strike (>72h)            4                                   bookings_next14d  234         7.911   1.191 -3.444 5.825 0.615
+standard strike (<=72h) vs no strike (>72h)            4 late_fails_prior30d  [balance check: should be ~0]  787         1.540   0.049 -0.607 0.706 0.883
+standard strike (<=72h) vs no strike (>72h)            4   bookings_prior14d  [balance check: should be ~0]  234        11.756  -1.975 -6.568 2.618 0.399
+standard strike (<=72h) vs no strike (>72h)            8                                 late_fails_next30d 1469         2.072  -0.182 -0.720 0.356 0.508
+standard strike (<=72h) vs no strike (>72h)            8                                   any_late_next30d 1469         0.657  -0.104 -0.210 0.002 0.055
+standard strike (<=72h) vs no strike (>72h)            8                                       ncns_next30d 1469         0.551  -0.135 -0.384 0.114 0.289
+standard strike (<=72h) vs no strike (>72h)            8                                   bookings_next14d  433         8.105   1.223 -2.197 4.643 0.483
+standard strike (<=72h) vs no strike (>72h)            8 late_fails_prior30d  [balance check: should be ~0] 1469         1.517   0.096 -0.425 0.617 0.717
+standard strike (<=72h) vs no strike (>72h)            8   bookings_prior14d  [balance check: should be ~0]  433        12.066  -0.406 -4.120 3.309 0.831
+
+========================================================================================================================
+B. RELIABILITY ESTIMATES FOR THIN HISTORIES (empirical Bayes) vs the current cut-off rules  -- 24h before start
+========================================================================================================================
+late_fail: fitted prior risk for a worker with no history = 0.202 (Nov 1-15 base rate 0.119); prior weight = 5 bookings (a worker's own record outweighs the prior after ~5 bookings)
+ncns: fitted prior risk for a worker with no history = 0.046 (Nov 1-15 base rate 0.036); prior weight = 20 bookings (a worker's own record outweighs the prior after ~20 bookings)
+
+Test half (Nov 16-30): share of failures caught and precision at the same workload
+  outcome              workload  EB: caught  EB: precision  raw rate (5+ bkgs): caught  raw rate: precision
+late_fail                  0.05       0.150          0.331                       0.136                0.301
+late_fail                   0.1       0.258          0.284                       0.238                0.263
+late_fail                   0.2       0.430          0.238                       0.379                0.209
+late_fail                 0.419       0.721          0.187                       0.589                0.155
+late_fail balanced rule (0.419)         NaN            NaN                       0.711                0.188
+     ncns                  0.05       0.145          0.093                       0.133                0.089
+     ncns                   0.1       0.253          0.084                       0.242                0.081
+     ncns                   0.2       0.412          0.069                       0.362                0.061
+     ncns                 0.419       0.675          0.054                       0.517                0.041
+     ncns balanced rule (0.419)         NaN            NaN                       0.692                0.055
+
+Who gets flagged (test half, same workload):
+                              bookings  actual_late_fail_rate  flagged_by_balanced_rule  flagged_by_EB
+group                                                                                                 
+1-4 bookings, clean record        1807                  0.150                       1.0          1.000
+1-4 bookings, has failed           897                  0.252                       1.0          1.000
+20+ bookings, clean record        3806                  0.021                       0.0          0.000
+5+ bookings, late-fail >=10%      8372                  0.185                       1.0          0.982
+no history                         852                  0.229                       1.0          1.000
+other established                12742                  0.065                       0.0          0.028
+
+========================================================================================================================
+C. DOES HIGHER PAY CAUSE MORE REFILLS?  (Cleveland shifts dropped <24h before start)
+========================================================================================================================
+share worked by pay bin (raw): {'above': {'size': 261, 'mean': 0.372}, 'at': {'size': 990, 'mean': 0.316}, 'below': {'size': 568, 'mean': 0.231}, 'well_above': {'size': 406, 'mean': 0.35}}
+                                          model    n below vs at-norm (pts) above vs at-norm (pts) well_above vs at-norm (pts)
+                                          1 raw 2225      -8.6 [-16.3,-0.8]      +5.5 [-2.7,+13.8]           +3.4 [-7.2,+13.9]
+      2 + notice, clock, day, month, type, role 2225      -7.4 [-14.6,-0.2]      +8.5 [+0.3,+16.6]           +7.1 [-2.2,+16.3]
+             3 + facility fixed effects + bench 2225     -10.8 [-16.0,-5.6]      +7.5 [-0.9,+15.9]           +5.9 [-4.1,+16.0]
+4 same facility x role x type (cell FE) + bench 2225     -13.0 [-18.7,-7.2]      +5.9 [-5.4,+17.3]           +7.6 [-3.7,+18.9]
+dose-response (model 4 controls): each +10% pay above the cell norm -> +2.0 pts worked [-0.2, +4.2], p=0.082
+bench depth (model 4): each doubling of recent workers at the facility -> +1.7 pts worked
+
+========================================================================================================================
+D. HOW MUCH LATE-FAILURE RISK SITS WITH THE WORKER vs THE FACILITY vs THE DAY?
+========================================================================================================================
+self-test: true SDs worker/facility/day = (0.08, 0.03, 0.01) -> recovered (np.float64(0.07), np.float64(0.023), np.float64(0.009))
+SD = spread of true underlying rates across workers / facilities / days, in percentage points
+                              mean rate  SD worker (pts)  SD facility (pts)  SD day (pts)  worker share of systematic risk  facility share  day share  systematic share of all variation
+outcome                                                                                                                                                                                 
+late failure, all bookings        0.138           12.308              4.935         1.092                            0.856           0.138      0.007                              0.183
+NCNS, all bookings                0.048            6.327              3.405         0.395                            0.773           0.224      0.003                              0.154
+late failure, Cleveland only      0.128           11.211              3.776         0.369                            0.897           0.102      0.001                              0.137

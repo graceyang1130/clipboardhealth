@@ -1,0 +1,54 @@
+workers in claim cohort: 6795  with >=1 late failure: 4124 (60.7%)  with >=1 NCNS: 1980 (29.1%)
+top 1% workers' share of late failures: observed 0.104 | null(same rate for all) 0.070 | their share of claims 0.039
+top 5% workers' share of late failures: observed 0.314 | null(same rate for all) 0.249 | their share of claims 0.136
+top 10% workers' share of late failures: observed 0.472 | null(same rate for all) 0.407 | their share of claims 0.229
+top 20% workers' share of late failures: observed 0.672 | null(same rate for all) 0.630 | their share of claims 0.379
+  NCNS: top 5% share observed 0.441 vs null 0.314; top 20% observed 0.846 vs null 0.733
+  late cancel: top 5% share observed 0.355 vs null 0.264; top 20% observed 0.711 vs null 0.658
+workers n>=10: 3549  var(rate) observed 0.0151  binomial expected 0.0042  ratio 3.57
+== late-fail rate by worker volume tier (claims in Oct-Nov)
+       workers  claims    lf  ncns   rate  ncns_rate  share_claims  share_lf
+tier                                                                        
+1-2       1344    1934   466   157  0.241      0.081         0.016     0.037
+3-5       1049    4081   858   291  0.210      0.071         0.033     0.069
+6-10      1035    8075  1306   390  0.162      0.048         0.066     0.104
+11-20     1207   17979  2357   733  0.131      0.041         0.147     0.188
+21-40     1261   36996  3451  1123  0.093      0.030         0.302     0.276
+41+        899   53297  4085  1329  0.077      0.025         0.436     0.326
+== persistence (workers with >=5 claims in Oct AND Nov): 2198  spearman(rate Oct, rate Nov)= 0.463
+        workers  octrate  nov_rate  nov_lf  nov_claims  share_nov_lf  share_nov_claims
+q                                                                                     
+0           873    0.000     0.043   589.0     15638.0         0.161             0.350
+0-10%       630    0.062     0.072   913.0     15072.0         0.249             0.337
+10-20%      421    0.150     0.125  1010.0      8665.0         0.276             0.194
+20-35%      174    0.266     0.198   652.0      3440.0         0.178             0.077
+>35%        100    0.494     0.281   501.0      1882.0         0.137             0.042
+Nov NCNS rate by Oct NCNS count: {0.0: {'workers': 1579, 'nov_ncns_rate': 508.0, 'rate': 0.0168}, 1.0: {'workers': 409, 'nov_ncns_rate': 319.0, 'rate': 0.0357}, 2.0: {'workers': 121, 'nov_ncns_rate': 153.0, 'rate': 0.051}, 3.0: {'workers': 89, 'nov_ncns_rate': 198.0, 'rate': 0.079}}
+== by worker tenure at claim
+         claims  late_fail    ncns  late_cancel  any_cancel   share
+ten                                                                
+<2wk       8242     0.1386  0.0414       0.0972      0.2942  0.0674
+2wk-1mo   11493     0.1169  0.0386       0.0782      0.2334  0.0939
+1-3mo     40224     0.1064  0.0348       0.0716      0.2169  0.3287
+3-6mo     25942     0.0991  0.0315       0.0676      0.2050  0.2120
+6-12mo    18922     0.0781  0.0243       0.0538      0.1741  0.1546
+1y+       17539     0.0975  0.0320       0.0655      0.1937  0.1433
+== first vs repeat at facility (Nov starts; lookback from Aug)
+                    claims  late_fail    ncns      lc
+newfac                                               
+first at facility    13338     0.1624  0.0500  0.1124
+repeat at facility   53611     0.0898  0.0278  0.0620
+  restricted to workers with tenure>180d:
+                    claims  late_fail    ncns
+newfac                                       
+first at facility     3069     0.1626  0.0577
+repeat at facility   16386     0.0749  0.0209
+  by facility visit index:
+   claims  late_fail    ncns
+k                           
+0   13338     0.1624  0.0500
+1    7861     0.1421  0.0422
+2    5382     0.1323  0.0438
+3    4154     0.1139  0.0332
+4    3347     0.1079  0.0359
+5   32867     0.0655  0.0203

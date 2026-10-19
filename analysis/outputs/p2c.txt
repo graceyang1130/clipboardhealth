@@ -1,0 +1,78 @@
+== booked Cleveland shifts overall late_fail 0.133  ncns 0.04
+               n  late_fail   ncns  worked
+Shift Type                                
+am          8039      0.137  0.048   0.657
+custom       556      0.108  0.041   0.588
+noc         7425      0.127  0.032   0.671
+pm          7929      0.137  0.040   0.681
+               n  late_fail   ncns  worked
+Agent Req                                 
+CNA        18140      0.142  0.045   0.671
+LVN         4672      0.119  0.028   0.653
+RN          1137      0.057  0.009   0.671
+        n  late_fail   ncns  worked
+dow                                
+Fri  3616      0.131  0.041   0.652
+Mon  2935      0.147  0.052   0.682
+Sat  3988      0.123  0.037   0.686
+Sun  3930      0.158  0.048   0.679
+Thu  3297      0.120  0.032   0.648
+Tue  3062      0.131  0.040   0.668
+Wed  3121      0.119  0.033   0.655
+            n  late_fail   ncns  worked
+durb                                   
+<6h      1313      0.157  0.043   0.622
+6-8h    12096      0.150  0.047   0.676
+8-10h    4965      0.114  0.031   0.650
+10-12h   4258      0.116  0.037   0.664
+12h+     1317      0.080  0.025   0.713
+posting lead:
+           n  late_fail   ncns  worked
+plb                                  
+<1d    1201      0.117  0.053   0.814
+1-3d   2245      0.145  0.039   0.737
+3-7d   4821      0.143  0.046   0.703
+1-2wk  6074      0.138  0.044   0.668
+2-4wk  7310      0.126  0.034   0.619
+4wk+   2298      0.119  0.034   0.603
+relative charge:
+                  n  late_fail   ncns  worked
+relq                                        
+below median  5500      0.145  0.036   0.685
+at median     8308      0.160  0.050   0.767
++0-10%        2251      0.145  0.048   0.795
+>+10%         4969      0.148  0.049   0.817
+facilities n>=50: 43  rate range 0.034 - 0.216  |z|>3: 11  above: 5  below: 6
+  share of late failures at facilities z>3: 0.207  their share of booked shifts: 0.14
+  overdispersion ratio: 4.59
+== clock hour of late (<24h) worker cancels, by shift type (local)
+Shift Type     am  custom    noc     pm
+at_loc                                 
+0           0.040   0.000  0.007  0.012
+1           0.034   0.000  0.004  0.007
+2           0.032   0.000  0.011  0.011
+3           0.028   0.000  0.003  0.005
+4           0.078   0.027  0.007  0.006
+5           0.192   0.000  0.003  0.007
+6           0.162   0.081  0.008  0.018
+7           0.012   0.027  0.012  0.018
+8           0.022   0.054  0.019  0.034
+9           0.015   0.000  0.016  0.058
+10          0.008   0.000  0.021  0.076
+11          0.019   0.000  0.028  0.099
+12          0.035   0.081  0.032  0.152
+13          0.009   0.054  0.042  0.163
+14          0.019   0.054  0.051  0.123
+15          0.019   0.027  0.050  0.025
+16          0.028   0.027  0.077  0.038
+17          0.027   0.081  0.075  0.051
+18          0.032   0.027  0.094  0.039
+19          0.034   0.054  0.089  0.017
+20          0.024   0.108  0.106  0.010
+21          0.046   0.216  0.125  0.012
+22          0.040   0.081  0.113  0.007
+23          0.043   0.000  0.009  0.010
+share of late cancels made between 10pm-6am local: 0.229
+share of late cancels for AM shifts made same calendar day as shift or night before after 8pm: 0.734
+Jan16-17 booked shifts: 282  late fail: 0.199  facilities affected: 26 of 37
+  late cancels Jan16-17: 38  distinct workers: 36

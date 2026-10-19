@@ -1,0 +1,59 @@
+claims (lead>=0): 122362
+== Outcome band share per claim (all markets / Cleveland)
+             all     cle
+band                    
+0_kept    0.7888  0.7713
+1_NCNS    0.0329  0.0295
+2_<4h     0.0317  0.0443
+3_4-24h   0.0377  0.0384
+4_24-72h  0.0211  0.0172
+5_>72h    0.0877  0.0993
+active at T-24h: 96065  -> late cancel(<24h): 0.0763  NCNS: 0.0351  any late fail: 0.1114  kept: 0.8886
+active at start (not worker-canceled): 100544  NCNS rate: 0.04
+claims made <24h before start: 12979 (10.6%)  late-fail rate: 0.1404  NCNS: 0.0501
+share of all late failures coming from claims made <24h out: 0.1455
+late failures composition: {'1_NCNS': 0.321, '2_<4h': 0.31, '3_4-24h': 0.369}
+== Worker-cancel lead CDF (all events Oct-Jan):
+  <1h: 0.054
+  <2h: 0.104
+  <4h: 0.167
+  <8h: 0.247
+  <12h: 0.291
+  <24h: 0.366
+  <48h: 0.439
+  <72h: 0.487
+  <168h: 0.640
+== Refill before start by cancel lead (national, Oct-Nov starts)
+                 n  refill  med_ttr_h
+lb                                   
+[0, 1)        1276   0.075      0.233
+[1, 2)        1155   0.168      0.485
+[2, 4)        1530   0.250      0.617
+[4, 8)        1932   0.302      0.917
+[8, 12)       1094   0.327      1.709
+[12, 24)      1668   0.494      2.281
+[24, 48)      1661   0.617      3.543
+[48, 72)      1052   0.691      5.835
+[72, 168)     3600   0.757     10.268
+[168, 10000)  7703   0.857     17.966
+== Cleveland shifts w/ HCP failure: final state by LAST failure band
+state      assigned_unverified  deleted_after_booked  deleted_unassigned  unfilled  worked     n
+last_band                                                                                       
+1_NCNS                   0.001                 0.001               0.030     0.938   0.030   964
+2_<4h                    0.007                 0.006               0.076     0.656   0.256  1263
+3_4-24h                  0.023                 0.028               0.093     0.482   0.374   962
+4_24-72h                 0.032                 0.065               0.173     0.210   0.520   433
+5_>72h                   0.015                 0.204               0.134     0.060   0.587  2365
+worked        False  True 
+lb                        
+[0, 1)        0.835  0.165
+[1, 2)        0.760  0.240
+[2, 4)        0.634  0.366
+[4, 8)        0.669  0.331
+[8, 12)       0.642  0.358
+[12, 24)      0.555  0.445
+[24, 48)      0.494  0.506
+[48, 72)      0.460  0.540
+[72, 168)     0.441  0.559
+[168, 10000)  0.402  0.598
+Cleveland: booked shifts: 23949  with >=1 late failure: 3189 (13.3%)  with NCNS: 964

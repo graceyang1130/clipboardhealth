@@ -1,0 +1,128 @@
+
+========================================================================================================================
+1. WHO GETS CHECKED (bookings still on the books 24h before start, Nov starts)
+========================================================================================================================
+      scope                                                     trigger  share of bookings checked  NCNS: share covered  <4h: share covered  4-24h: share covered  any late: share covered  late rate: checked  late rate: not checked
+all markets A not yet proven (<5 past bookings OR late-fail rate >=10%)                      0.411                0.672               0.761                 0.683                    0.704               0.196                   0.057
+all markets                                 B late drop in the last 48h                      0.086                0.116               0.217                 0.199                    0.180               0.239                   0.103
+all markets                              C first visit to this facility                      0.177                0.273               0.271                 0.291                    0.279               0.180                   0.100
+all markets                                                      A or B                      0.428                0.685               0.773                 0.699                    0.718               0.191                   0.056
+all markets                                      A or B or C (proposal)                      0.491                0.744               0.817                 0.763                    0.774               0.180                   0.051
+  Cleveland A not yet proven (<5 past bookings OR late-fail rate >=10%)                      0.458                0.643               0.745                 0.642                    0.682               0.189                   0.075
+  Cleveland                                 B late drop in the last 48h                      0.124                0.171               0.238                 0.186                    0.203               0.208                   0.116
+  Cleveland                              C first visit to this facility                      0.194                0.271               0.281                 0.327                    0.296               0.194                   0.111
+  Cleveland                                                      A or B                      0.485                0.679               0.758                 0.659                    0.702               0.184                   0.074
+  Cleveland                                      A or B or C (proposal)                      0.553                0.743               0.818                 0.757                    0.777               0.179                   0.063
+coverage used in the impact model (all markets): {'1_NCNS': np.float64(0.744), '2_<4h': np.float64(0.817), '3_4-24h': np.float64(0.763)}
+history check: of bookings flagged for <5 past bookings, 32% come from accounts >90 days old (late-fail 0.217 vs 0.195 for newer accounts)
+
+========================================================================================================================
+2. IMPACT (Cleveland shifts with a late failure, Oct-Jan)
+========================================================================================================================
+booked shifts: 23,949 | with a late failure: 3,189 | left unfilled after a late failure: 2,196 (9.2 per 100 booked) | revenue per recovered shift $68 on $308 billings
+by start window:
+                   late_failure_shifts  deadline_notice_h  share_after_deadline  worked_today  worked_today_after_deadline  worked_if_surfaced_at_deadline
+window                                                                                                                                                    
+afternoon/evening                 1317                6.0                 0.832         0.263                        0.234                           0.412
+morning                           1109               12.0                 0.863         0.145                        0.107                           0.314
+night                              761               10.0                 0.894         0.267                        0.232                           0.483
+noon                                 2               15.5                 1.000         1.000                        1.000                           0.418
+by failure type:
+              n  share_after_deadline  worked_today  worked_if_surfaced  coverage
+last_band                                                                        
+1_NCNS      964                 1.000         0.030               0.386     0.744
+2_<4h      1263                 1.000         0.256               0.403     0.817
+3_4-24h     962                 0.528         0.374               0.393     0.763
+
+scenarios (Cleveland, per year):
+scenario                                    conservative        base  optimistic
+surface at deadline                                0.150       0.300       0.500
+prevented                                          0.000       0.050       0.100
+shifts saved / yr                                194.625     658.221    1160.741
+revenue / yr                                   13062.491   44309.091   78168.190
+billings / yr                                  59374.961  201404.961  355309.954
+unfilled after late failure per 100 booked         8.899       8.253       7.554
+relative cut in that metric                        0.030       0.100       0.176
+NCNS avoided                                       0.112       0.249       0.409
+<4h drops avoided                                  0.123       0.274       0.449
+message cost / yr                               1987.925    1987.925    1987.925
+pay floor cost / yr (upper bound)               3665.713    6964.854   10997.138
+net revenue / yr                                7408.853   35356.312   65183.126
+all-markets revenue / yr                      148435.417  503505.669  888263.005
+
+checks per year in Cleveland: 39,759 (55% of bookings) | at $0.05/check: $1,988
+guardrail scale: if 5% of checks are workers who meant to come but never confirm, and a released shift is claimed by someone else 39% of the time, ~785 workers/yr would lose a shift they meant to work
+break-even: messages are paid for if 2.3% of covered after-deadline late failures surface at the deadline
+
+sensitivity (Cleveland, per year; nothing prevented outright):
+ share of covered after-deadline failures surfacing early  NCNS + call-offs avoided  shifts regained / yr  share of lost revenue regained  Cleveland revenue / yr  Cleveland net of running cost / yr  all-markets revenue / yr
+                                                     0.05                     0.039                64.875                           0.010                4354.164                            1144.334                 49478.472
+                                                     0.10                     0.079               129.750                           0.019                8708.328                            4276.594                 98956.945
+                                                     0.15                     0.118               194.625                           0.029               13062.491                            7408.853                148435.417
+                                                     0.20                     0.157               259.500                           0.039               17416.655                           10541.113                197913.890
+                                                     0.30                     0.236               389.250                           0.058               26124.983                           16805.632                296870.834
+                                                     0.40                     0.314               519.000                           0.078               34833.310                           23070.151                395827.779
+                                                     0.50                     0.393               648.750                           0.097               43541.638                           29334.670                494784.724
+Cleveland = 8.8% of bookings | revenue lost to late failures: Cleveland $448,765/yr, all markets ~$5,099,535/yr
+each 5 points of covered late failures prevented outright adds $19,490/yr in Cleveland ($221,478 all markets)
+if released shifts refill only k x as far above today's outcome as history suggests, multiply the revenue columns by k
+
+two-way sensitivity, Cleveland revenue / yr (rows: share surfacing early; columns: share prevented outright):
+prevented         0.00     0.05     0.10     0.15      0.20
+surface early                                              
+0.05            4354.0  23627.0  42899.0  62172.0   81445.0
+0.10            8708.0  27763.0  46818.0  65873.0   84928.0
+0.15           13062.0  31900.0  50737.0  69574.0   88411.0
+0.20           17417.0  36036.0  54656.0  73275.0   91895.0
+0.30           26125.0  44309.0  62493.0  80677.0   98861.0
+0.50           43542.0  60855.0  78168.0  95481.0  112795.0
+same, all markets ($M):
+prevented      0.00  0.05  0.10  0.15  0.20
+surface early                              
+0.05           0.05  0.27  0.49  0.71  0.93
+0.10           0.10  0.32  0.53  0.75  0.97
+0.15           0.15  0.36  0.58  0.79  1.00
+0.20           0.20  0.41  0.62  0.83  1.04
+0.30           0.30  0.50  0.71  0.92  1.12
+0.50           0.49  0.69  0.89  1.09  1.28
+same, share of lost revenue regained:
+prevented       0.00   0.05   0.10   0.15   0.20
+surface early                                   
+0.05           0.010  0.053  0.096  0.139  0.181
+0.10           0.019  0.062  0.104  0.147  0.189
+0.15           0.029  0.071  0.113  0.155  0.197
+0.20           0.039  0.080  0.122  0.163  0.205
+0.30           0.058  0.099  0.139  0.180  0.220
+0.50           0.097  0.136  0.174  0.213  0.251
+
+========================================================================================================================
+4. PILOT SIZE (checked Cleveland bookings; 80% power, 2-sided 5%)
+========================================================================================================================
+unfilled after a late failure: rate among checked bookings 0.127 | worker ICC 0.086 -> design effect if randomised by worker 2.65 | expected cut: conservative 3.8%, base 12.9%, optimistic 22.7%
+NCNS or <4h call-off: rate among checked bookings 0.114 | worker ICC 0.063 -> design effect if randomised by worker 2.21 | expected cut: conservative 15.0%, base 33.5%, optimistic 55.0%
+checked Cleveland bookings per week: 547
+                       metric randomised by  markets (Cleveland-sized)  weeks  checked bookings per arm  baseline  MDE (relative)  powered for base case
+unfilled after a late failure       booking                          1      8                      2188     0.127           0.222                  False
+unfilled after a late failure       booking                          1     12                      3281     0.127           0.181                  False
+unfilled after a late failure       booking                          4      8                      8750     0.127           0.111                   True
+unfilled after a late failure       booking                          4     12                     13125     0.127           0.091                   True
+unfilled after a late failure       booking                          6      8                     13125     0.127           0.091                   True
+unfilled after a late failure       booking                          6     12                     19688     0.127           0.074                   True
+unfilled after a late failure        worker                          1      8                      2188     0.127           0.362                  False
+unfilled after a late failure        worker                          1     12                      3281     0.127           0.296                  False
+unfilled after a late failure        worker                          4      8                      8750     0.127           0.181                  False
+unfilled after a late failure        worker                          4     12                     13125     0.127           0.148                  False
+unfilled after a late failure        worker                          6      8                     13125     0.127           0.148                  False
+unfilled after a late failure        worker                          6     12                     19688     0.127           0.121                   True
+         NCNS or <4h call-off       booking                          1      8                      2188     0.114           0.236                   True
+         NCNS or <4h call-off       booking                          1     12                      3281     0.114           0.193                   True
+         NCNS or <4h call-off       booking                          4      8                      8750     0.114           0.118                   True
+         NCNS or <4h call-off       booking                          4     12                     13125     0.114           0.096                   True
+         NCNS or <4h call-off       booking                          6      8                     13125     0.114           0.096                   True
+         NCNS or <4h call-off       booking                          6     12                     19688     0.114           0.079                   True
+         NCNS or <4h call-off        worker                          1      8                      2188     0.114           0.352                  False
+         NCNS or <4h call-off        worker                          1     12                      3281     0.114           0.287                   True
+         NCNS or <4h call-off        worker                          4      8                      8750     0.114           0.176                   True
+         NCNS or <4h call-off        worker                          4     12                     13125     0.114           0.144                   True
+         NCNS or <4h call-off        worker                          6      8                     13125     0.114           0.144                   True
+         NCNS or <4h call-off        worker                          6     12                     19688     0.114           0.117                   True

@@ -1,0 +1,5 @@
+,model,n,below vs at-norm (pts),above vs at-norm (pts),well_above vs at-norm (pts)
+0,1 raw,2225,"-8.6 [-16.3,-0.8]","+5.5 [-2.7,+13.8]","+3.4 [-7.2,+13.9]"
+1,"2 + notice, clock, day, month, type, role",2225,"-7.4 [-14.6,-0.2]","+8.5 [+0.3,+16.6]","+7.1 [-2.2,+16.3]"
+2,3 + facility fixed effects + bench,2225,"-10.8 [-16.0,-5.6]","+7.5 [-0.9,+15.9]","+5.9 [-4.1,+16.0]"
+3,4 same facility x role x type (cell FE) + bench,2225,"-13.0 [-18.7,-7.2]","+5.9 [-5.4,+17.3]","+7.6 [-3.7,+18.9]"

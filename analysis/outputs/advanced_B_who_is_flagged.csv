@@ -1,0 +1,7 @@
+group,bookings,actual_late_fail_rate,flagged_by_balanced_rule,flagged_by_EB
+"1-4 bookings, clean record",1807,0.14997232982844494,1.0,1.0
+"1-4 bookings, has failed",897,0.25195094760312153,1.0,1.0
+"20+ bookings, clean record",3806,0.021282186022070416,0.0,0.0
+"5+ bookings, late-fail >=10%",8372,0.1845437171524128,1.0,0.9820831342570473
+no history,852,0.22887323943661972,1.0,1.0
+other established,12742,0.06498194945848375,0.0,0.028096060273112542

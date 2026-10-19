@@ -1,0 +1,9 @@
+# Raw data and assignment brief (kept local; repo is public)
+Cancellations Data Files/
+Clipboard Marketplace Reliability - Operations Strategy Associate.pdf
+
+# OS / editor / language junk
+.DS_Store
+__pycache__/
+*.pyc
+.Rhistory

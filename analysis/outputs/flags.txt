@@ -1,0 +1,217 @@
+
+============================================================================================================================================
+NCNS  |  flag raised 24h before start  |  52,187 bookings on the books  |  base rate 3.44%  (1,796 events)
+============================================================================================================================================
+top single signals (all Nov):
+                                        flagged  recall  precision   lift
+signal                                                                   
+past NCNS rate >=10%                      0.059   0.155      0.090  2.612
+past late-fail rate >=25%                 0.076   0.180      0.081  2.357
+never worked a shift / none in 30 days    0.051   0.119      0.080  2.333
+2+ past NCNS                              0.134   0.272      0.070  2.026
+past <4h-cancel rate >=10%                0.093   0.178      0.065  1.901
+NCNS in last 14 days                      0.173   0.320      0.064  1.851
+no past bookings at all                   0.031   0.056      0.062  1.810
+past late-fail rate >=10%                 0.282   0.465      0.057  1.646
+fewer than 5 past bookings                0.128   0.207      0.056  1.614
+2+ past call-offs                         0.159   0.250      0.054  1.576
+not signals (lift < 1.2): back-to-back (shift 6-16h earlier), double-booked (shift within 4h)
+
+TRADE-OFF (test = Nov 16-30):
+workload cap                         rule (chosen on Nov 1-15)  flagged  caught  precision  lift
+       <= 2%        past NCNS rate >=10% AND 2+ past call-offs    0.017   0.060      0.118 3.534
+       <= 5%     NCNS in last 14 days AND past NCNS rate >=10%    0.043   0.120      0.092 2.760
+      <= 10%             2+ past NCNS AND NCNS in last 14 days    0.099   0.208      0.070 2.105
+      <= 20%              2+ past NCNS OR NCNS in last 14 days    0.223   0.383      0.057 1.716
+      <= 35% NCNS in last 14 days OR past late-fail rate >=10%    0.367   0.565      0.052 1.539
+      <= 50%                  1+ past NCNS OR 1+ past call-off    0.531   0.680      0.043 1.280
+BALANCED (max Youden J)             : 'past late-fail rate >=10% OR fewer than 5 past bookings' -> flags 41.9%, catches 69.2%, precision 5.5% (1.7x base)  [test]
+TIGHT (max precision, >=10% caught) : '2+ past NCNS AND past NCNS rate >=10%' -> flags 4.3%, catches 11.6%, precision 9.1% (2.7x base)  [test]
+benchmark model catches at the same workload -> 10%: model 27% | 20%: model 42% | 35%: model 64%
+
+============================================================================================================================================
+NCNS  |  flag raised 4h before start  |  54,979 bookings on the books  |  base rate 3.79%  (2,083 events)
+============================================================================================================================================
+top single signals (all Nov):
+                                        flagged  recall  precision   lift
+signal                                                                   
+past NCNS rate >=10%                      0.063   0.166      0.100  2.649
+never worked a shift / none in 30 days    0.045   0.114      0.096  2.521
+past late-fail rate >=25%                 0.073   0.181      0.094  2.490
+2+ past NCNS                              0.138   0.275      0.075  1.987
+past <4h-cancel rate >=10%                0.090   0.176      0.074  1.958
+no past bookings at all                   0.028   0.055      0.074  1.954
+NCNS in last 14 days                      0.176   0.324      0.070  1.844
+past late-fail rate >=10%                 0.277   0.465      0.064  1.678
+fewer than 5 past bookings                0.127   0.207      0.062  1.634
+first visit to this facility              0.189   0.303      0.061  1.607
+not signals (lift < 1.2): back-to-back (shift 6-16h earlier), double-booked (shift within 4h)
+
+TRADE-OFF (test = Nov 16-30):
+workload cap                         rule (chosen on Nov 1-15)  flagged  caught  precision  lift
+       <= 2%        past NCNS rate >=10% AND 2+ past call-offs    0.018   0.063      0.132 3.567
+       <= 5%             2+ past NCNS AND past NCNS rate >=10%    0.046   0.121      0.098 2.659
+      <= 10%   past NCNS rate >=10% OR no past bookings at all    0.089   0.215      0.089 2.415
+      <= 20%        2+ past NCNS OR past <4h-cancel rate >=10%    0.225   0.401      0.066 1.783
+      <= 35% past late-fail rate >=10% OR account <30 days old    0.367   0.587      0.059 1.601
+      <= 50%             1+ past NCNS OR booked 1-3 days ahead    0.515   0.701      0.050 1.361
+BALANCED (max Youden J)             : 'past late-fail rate >=10% OR fewer than 5 past bookings' -> flags 41.2%, catches 68.8%, precision 6.2% (1.7x base)  [test]
+TIGHT (max precision, >=10% caught) : '2+ past NCNS AND past NCNS rate >=10%' -> flags 4.6%, catches 12.1%, precision 9.8% (2.7x base)  [test]
+benchmark model catches at the same workload -> 10%: model 28% | 20%: model 43% | 35%: model 64%
+
+============================================================================================================================================
+<4H CANCEL  |  flag raised 24h before start  |  52,187 bookings on the books  |  base rate 3.59%  (1,873 events)
+============================================================================================================================================
+top single signals (all Nov):
+                                        flagged  recall  precision   lift
+signal                                                                   
+past late-fail rate >=25%                 0.076   0.246      0.116  3.226
+past <4h-cancel rate >=10%                0.093   0.286      0.110  3.058
+dropped a shift late in last 48h          0.086   0.217      0.090  2.520
+2+ past call-offs                         0.159   0.389      0.088  2.454
+call-off in last 14 days                  0.195   0.444      0.082  2.279
+never worked a shift / none in 30 days    0.051   0.114      0.080  2.237
+past 4-24h-cancel rate >=10%              0.095   0.210      0.079  2.202
+past late-fail rate >=10%                 0.282   0.544      0.069  1.927
+no past bookings at all                   0.031   0.054      0.064  1.771
+1+ past call-off                          0.337   0.590      0.063  1.751
+not signals (lift < 1.2): 1+ past NCNS, NCNS in last 14 days, back-to-back (shift 6-16h earlier), double-booked (shift within 4h)
+
+TRADE-OFF (test = Nov 16-30):
+workload cap                                   rule (chosen on Nov 1-15)  flagged  caught  precision  lift
+       <= 2%        past <4h-cancel rate >=10% AND booked 1-3 days ahead    0.018   0.051      0.097 2.790
+       <= 5%      call-off in last 14 days AND past late-fail rate >=25%    0.049   0.200      0.141 4.061
+      <= 10%                                  past <4h-cancel rate >=10%    0.096   0.283      0.102 2.938
+      <= 20% 2+ past call-offs OR never worked a shift / none in 30 days    0.223   0.507      0.079 2.275
+      <= 35%      call-off in last 14 days OR fewer than 5 past bookings    0.307   0.603      0.068 1.964
+      <= 50%     past late-fail rate >=10% OR fewer than 5 past bookings    0.419   0.751      0.062 1.794
+BALANCED (max Youden J)             : 'past late-fail rate >=10% OR fewer than 5 past bookings' -> flags 41.9%, catches 75.1%, precision 6.2% (1.8x base)  [test]
+TIGHT (max precision, >=10% caught) : 'dropped a shift late in last 48h AND past late-fail rate >=25%' -> flags 2.5%, catches 11.3%, precision 15.8% (4.6x base)  [test]
+benchmark model catches at the same workload -> 10%: model 34% | 20%: model 51% | 35%: model 70%
+
+============================================================================================================================================
+<4H CANCEL  |  flag raised 4h before start  |  54,979 bookings on the books  |  base rate 3.87%  (2,128 events)
+============================================================================================================================================
+top single signals (all Nov):
+                                        flagged  recall  precision   lift
+signal                                                                   
+past late-fail rate >=25%                 0.073   0.245      0.131  3.383
+past <4h-cancel rate >=10%                0.090   0.291      0.125  3.233
+dropped a shift late in last 48h          0.072   0.206      0.110  2.846
+2+ past call-offs                         0.154   0.382      0.096  2.479
+past 4-24h-cancel rate >=10%              0.089   0.210      0.091  2.348
+call-off in last 14 days                  0.188   0.434      0.089  2.312
+never worked a shift / none in 30 days    0.045   0.105      0.089  2.312
+past late-fail rate >=10%                 0.277   0.541      0.076  1.951
+fewer than 5 past bookings                0.127   0.225      0.068  1.770
+no past bookings at all                   0.028   0.050      0.068  1.763
+not signals (lift < 1.2): 1+ past NCNS, NCNS in last 14 days, back-to-back (shift 6-16h earlier), double-booked (shift within 4h)
+
+TRADE-OFF (test = Nov 16-30):
+workload cap                               rule (chosen on Nov 1-15)  flagged  caught  precision  lift
+       <= 2%             2+ past NCNS AND past <4h-cancel rate >=10%    0.023   0.082      0.135 3.595
+       <= 5%  call-off in last 14 days AND past late-fail rate >=25%    0.046   0.200      0.161 4.308
+      <= 10%                              past <4h-cancel rate >=10%    0.094   0.298      0.119 3.179
+      <= 20% past late-fail rate >=25% OR fewer than 5 past bookings    0.199   0.469      0.088 2.355
+      <= 35%  call-off in last 14 days OR fewer than 5 past bookings    0.298   0.602      0.076 2.021
+      <= 50%          1+ past call-off OR fewer than 5 past bookings    0.463   0.766      0.062 1.656
+BALANCED (max Youden J)             : 'past late-fail rate >=10% OR fewer than 5 past bookings' -> flags 41.2%, catches 76.0%, precision 6.9% (1.8x base)  [test]
+TIGHT (max precision, >=10% caught) : 'dropped a shift late in last 48h AND past late-fail rate >=25%' -> flags 2.0%, catches 10.6%, precision 19.9% (5.3x base)  [test]
+benchmark model catches at the same workload -> 10%: model 35% | 20%: model 53% | 35%: model 72%
+
+============================================================================================================================================
+4-24H CANCEL  |  flag raised 24h before start  |  52,187 bookings on the books  |  base rate 4.40%  (2,294 events)
+============================================================================================================================================
+top single signals (all Nov):
+                                        flagged  recall  precision   lift
+signal                                                                   
+never worked a shift / none in 30 days    0.051   0.138      0.119  2.710
+past 4-24h-cancel rate >=10%              0.095   0.224      0.103  2.347
+no past bookings at all                   0.031   0.072      0.103  2.339
+dropped a shift late in last 48h          0.086   0.199      0.102  2.316
+past late-fail rate >=25%                 0.076   0.175      0.101  2.297
+fewer than 5 past bookings                0.128   0.250      0.086  1.950
+past <4h-cancel rate >=10%                0.093   0.177      0.083  1.895
+holding no other shifts                   0.102   0.178      0.077  1.753
+first visit to this facility              0.177   0.291      0.072  1.646
+account <30 days old                      0.115   0.183      0.070  1.582
+not signals (lift < 1.2): 2+ past NCNS, 1+ past NCNS, NCNS in last 14 days, past NCNS rate >=10%, back-to-back (shift 6-16h earlier), double-booked (shift within 4h)
+
+TRADE-OFF (test = Nov 16-30):
+workload cap                                           rule (chosen on Nov 1-15)  flagged  caught  precision  lift
+       <= 2%       past 4-24h-cancel rate >=10% AND first visit to this facility    0.020   0.047      0.099 2.332
+       <= 5%                   1+ past call-off AND past 4-24h-cancel rate >=10%    0.054   0.151      0.118 2.801
+      <= 10%                                        past 4-24h-cancel rate >=10%    0.101   0.234      0.098 2.326
+      <= 20%         2+ past call-offs OR never worked a shift / none in 30 days    0.223   0.383      0.073 1.719
+      <= 35% past late-fail rate >=10% OR never worked a shift / none in 30 days    0.341   0.571      0.071 1.674
+      <= 50%             past late-fail rate >=10% OR fewer than 5 past bookings    0.419   0.694      0.070 1.656
+BALANCED (max Youden J)             : 'past late-fail rate >=10% OR fewer than 5 past bookings' -> flags 41.9%, catches 69.4%, precision 7.0% (1.7x base)  [test]
+TIGHT (max precision, >=10% caught) : 'call-off in last 14 days AND past 4-24h-cancel rate >=10%' -> flags 3.6%, catches 10.0%, precision 11.7% (2.8x base)  [test]
+benchmark model catches at the same workload -> 10%: model 29% | 20%: model 47% | 35%: model 67%
+
+============================================================================================================================================
+ANY LATE FAILURE (NCNS OR <24H CANCEL)  |  flag raised 24h before start  |  52,187 bookings on the books  |  base rate 11.43%  (5,963 events)
+============================================================================================================================================
+top single signals (all Nov):
+                                        flagged  recall  precision   lift
+signal                                                                   
+past late-fail rate >=25%                 0.076   0.199      0.298  2.607
+never worked a shift / none in 30 days    0.051   0.124      0.280  2.448
+past <4h-cancel rate >=10%                0.093   0.211      0.258  2.262
+dropped a shift late in last 48h          0.086   0.180      0.239  2.088
+past 4-24h-cancel rate >=10%              0.095   0.195      0.234  2.045
+no past bookings at all                   0.031   0.062      0.229  2.001
+2+ past call-offs                         0.159   0.292      0.210  1.839
+fewer than 5 past bookings                0.128   0.227      0.202  1.767
+call-off in last 14 days                  0.195   0.336      0.197  1.725
+past late-fail rate >=10%                 0.282   0.477      0.193  1.690
+not signals (lift < 1.2): 1+ past NCNS, back-to-back (shift 6-16h earlier), double-booked (shift within 4h)
+
+TRADE-OFF (test = Nov 16-30):
+workload cap                                           rule (chosen on Nov 1-15)  flagged  caught  precision  lift
+       <= 2%               NCNS in last 14 days AND past 4-24h-cancel rate >=10%    0.018   0.038      0.228 2.060
+       <= 5%              call-off in last 14 days AND past late-fail rate >=25%    0.049   0.139      0.312 2.824
+      <= 10%                                          past <4h-cancel rate >=10%    0.096   0.215      0.246 2.230
+      <= 20%         2+ past call-offs OR never worked a shift / none in 30 days    0.223   0.422      0.209 1.894
+      <= 35% past late-fail rate >=10% OR never worked a shift / none in 30 days    0.341   0.603      0.195 1.767
+      <= 50%             past late-fail rate >=10% OR fewer than 5 past bookings    0.419   0.711      0.188 1.698
+BALANCED (max Youden J)             : 'past late-fail rate >=10% OR fewer than 5 past bookings' -> flags 41.9%, catches 71.1%, precision 18.8% (1.7x base)  [test]
+TIGHT (max precision, >=10% caught) : 'past <4h-cancel rate >=10% AND past late-fail rate >=25%' -> flags 5.2%, catches 14.5%, precision 30.9% (2.8x base)  [test]
+benchmark model catches at the same workload -> 10%: model 27% | 20%: model 45% | 35%: model 65%
+
+============================================================================================================================================
+SUMMARY OF PICKS (test half, Nov 16-30)
+============================================================================================================================================
+                                target   decision     pick                                                           rule  base_rate  flagged  caught  precision  lift
+                                  NCNS 24h before BALANCED        past late-fail rate >=10% OR fewer than 5 past bookings      0.033    0.419   0.692      0.055 1.651
+                                  NCNS 24h before    TIGHT                          2+ past NCNS AND past NCNS rate >=10%      0.033    0.043   0.116      0.091 2.710
+                                  NCNS  4h before BALANCED        past late-fail rate >=10% OR fewer than 5 past bookings      0.037    0.412   0.688      0.062 1.671
+                                  NCNS  4h before    TIGHT                          2+ past NCNS AND past NCNS rate >=10%      0.037    0.046   0.121      0.098 2.659
+                            <4h cancel 24h before BALANCED        past late-fail rate >=10% OR fewer than 5 past bookings      0.035    0.419   0.751      0.062 1.794
+                            <4h cancel 24h before    TIGHT dropped a shift late in last 48h AND past late-fail rate >=25%      0.035    0.025   0.113      0.158 4.561
+                            <4h cancel  4h before BALANCED        past late-fail rate >=10% OR fewer than 5 past bookings      0.037    0.412   0.760      0.069 1.845
+                            <4h cancel  4h before    TIGHT dropped a shift late in last 48h AND past late-fail rate >=25%      0.037    0.020   0.106      0.199 5.312
+                          4-24h cancel 24h before BALANCED        past late-fail rate >=10% OR fewer than 5 past bookings      0.042    0.419   0.694      0.070 1.656
+                          4-24h cancel 24h before    TIGHT      call-off in last 14 days AND past 4-24h-cancel rate >=10%      0.042    0.036   0.100      0.117 2.762
+any late failure (NCNS or <24h cancel) 24h before BALANCED        past late-fail rate >=10% OR fewer than 5 past bookings      0.110    0.419   0.711      0.188 1.698
+any late failure (NCNS or <24h cancel) 24h before    TIGHT       past <4h-cancel rate >=10% AND past late-fail rate >=25%      0.110    0.052   0.145      0.309 2.794
+
+============================================================================================================================================
+THE BALANCED FLAG FOR EVERY TYPE: 'not yet proven (<5 past bookings) OR past late-fail rate >=10%'  -- 24h before start
+============================================================================================================================================
+scope                                     all markets, Nov  test half (Nov 16-30)  Cleveland  other markets
+bookings                                         52187.000              28476.000   4693.000      47494.000
+flagged share                                        0.411                  0.419      0.458          0.406
+NCNS: flagged rate                                   0.056                  0.055      0.042          0.058
+NCNS: unflagged rate                                 0.019                  0.018      0.020          0.019
+NCNS: share caught                                   0.672                  0.692      0.643          0.675
+<4h: flagged rate                                    0.066                  0.062      0.080          0.065
+<4h: unflagged rate                                  0.015                  0.015      0.023          0.014
+<4h: share caught                                    0.761                  0.751      0.745          0.763
+4-24h: flagged rate                                  0.073                  0.070      0.068          0.074
+4-24h: unflagged rate                                0.024                  0.022      0.032          0.023
+4-24h: share caught                                  0.683                  0.694      0.642          0.687
+any late: flagged rate                               0.196                  0.188      0.189          0.197
+any late: unflagged rate                             0.057                  0.055      0.075          0.056
+any late: share caught                               0.704                  0.711      0.682          0.706
+share of expected unfilled shifts caught             0.702                  0.710      0.682          0.704

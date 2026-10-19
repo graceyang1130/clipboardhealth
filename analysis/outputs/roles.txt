@@ -1,0 +1,177 @@
+
+==================================================================================================================================
+0. ROLE PROFILE (raw Cleveland shift log, all roles; last two columns after cleaning)
+==================================================================================================================================
+             posted  facilities  professionals  median_charge_hr  cancelled_by_facility  filled_of_not_cancelled     billings  billing_share  pro_pay_hr_at_take     kept   booked
+grp                                                                                                                                                                               
+CNA         24662.0        61.0          670.0              32.0                  0.306                    0.731  3543917.506          0.637               24.96  24007.0  18140.0
+LVN         11277.0        60.0          240.0              47.0                  0.393                    0.454  1513224.342          0.272               36.66  11070.0   4672.0
+RN           3139.0        34.0           86.0              65.0                  0.367                    0.394   505263.073          0.091               50.70   3075.0   1137.0
+NURSE        1907.0        28.0            0.0               0.0                  0.431                    0.003        0.000          0.000                0.00      NaN      NaN
+CAREGIVER      31.0         8.0            3.0              30.0                  0.419                    0.167      712.500          0.000               23.40      NaN      NaN
+Other rare     24.0         5.0            0.0               7.0                  0.500                    0.000        0.000          0.000                5.46      NaN      NaN
+All         41040.0        67.0          997.0              37.0                  0.341                    0.606  5563117.421          1.000               28.86  38152.0  23949.0
+
+==================================================================================================================================
+1. ROLE x START WINDOW (Cleveland booked shifts, Oct 2021-Jan 2022)
+==================================================================================================================================
+role            window  booked  late_fail_rate  ncns_rate  calloff_rate  c424_rate  ncns_share_of_late  late_failures  share_of_all_late  lost_rev_yr  share_of_lost_rev  worked_after_late_failure  unfilled_after_late_failure  share_after_deadline  morning_late_cancels_overnight
+ CNA           morning  6153.0           0.146      0.055         0.048      0.043               0.376          899.0              0.282   122497.016              0.273                      0.158                        0.749                 0.877                           0.692
+ CNA afternoon/evening  7566.0           0.138      0.042         0.063      0.033               0.307         1042.0              0.327   119336.725              0.266                      0.289                        0.637                 0.858                             NaN
+ CNA             night  4421.0           0.142      0.038         0.064      0.040               0.265          626.0              0.196    72329.360              0.161                      0.281                        0.669                 0.914                             NaN
+ CNA               all 18140.0           0.142      0.045         0.058      0.038               0.321         2567.0              0.805   314163.102              0.700                      0.241                        0.684                 0.878                           0.692
+ LVN           morning  1622.0           0.119      0.033         0.031      0.055               0.275          193.0              0.061    45729.948              0.102                      0.073                        0.788                 0.803                           0.607
+ LVN afternoon/evening  2225.0           0.112      0.025         0.044      0.043               0.225          249.0              0.078    51801.361              0.115                      0.153                        0.683                 0.751                             NaN
+ LVN             night   825.0           0.139      0.025         0.046      0.068               0.183          115.0              0.036    20258.033              0.045                      0.217                        0.643                 0.783                             NaN
+ LVN               all  4672.0           0.119      0.028         0.040      0.051               0.233          557.0              0.175   117789.342              0.262                      0.138                        0.711                 0.776                           0.607
+  RN           morning   363.0           0.047      0.008         0.014      0.025               0.176           17.0              0.005     4234.006              0.009                      0.294                        0.647                 0.824                           0.643
+  RN afternoon/evening   522.0           0.054      0.008         0.015      0.031               0.143           28.0              0.009     7337.880              0.016                      0.321                        0.643                 0.607                             NaN
+  RN             night   252.0           0.079      0.012         0.036      0.032               0.150           20.0              0.006     5240.730              0.012                      0.100                        0.750                 0.900                             NaN
+  RN               all  1137.0           0.057      0.009         0.019      0.029               0.154           65.0              0.020    16812.616              0.037                      0.246                        0.677                 0.754                           0.643
+ all           morning  8138.0           0.136      0.048         0.043      0.045               0.355         1109.0              0.348   172460.970              0.384                      0.145                        0.754                 0.863                           0.674
+ all afternoon/evening 10313.0           0.128      0.037         0.056      0.035               0.288         1319.0              0.414   178475.966              0.398                      0.264                        0.646                 0.832                             NaN
+ all             night  5498.0           0.138      0.035         0.060      0.044               0.250          761.0              0.239    97828.124              0.218                      0.267                        0.668                 0.894                             NaN
+ all               all 23949.0           0.133      0.040         0.053      0.040               0.302         3189.0              1.000   448765.060              1.000                      0.223                        0.689                 0.858                           0.674
+
+late cancellations by hour of the drop, morning starts (share of each role's morning late cancels):
+when  midnight-7am  7am-noon  noon-7pm  7-10pm  10pm-midnight
+role                                                         
+CNA          0.610     0.057     0.152   0.100          0.082
+LVN          0.514     0.064     0.200   0.129          0.093
+RN           0.357     0.071     0.143   0.143          0.286
+
+==================================================================================================================================
+2. REFILL BY ROLE
+==================================================================================================================================
+share of shifts still worked, by role and the notice of the last failure:
+notice   NCNS    <4h  4-24h  24-72h   >72h
+role                                      
+CNA     0.029  0.279  0.437   0.608  0.626
+LVN     0.031  0.134  0.200   0.278  0.474
+RN      0.100  0.182  0.333   0.296  0.389
+notice  NCNS   <4h  4-24h  24-72h  >72h
+role                                   
+CNA      824  1054    689     316  1836
+LVN      130   187    240      90   403
+RN        10    22     33      27   126
+
+late cancellations (<24h): share re-booked by another worker, and how fast:
+      late_cancels  rebooked  median_hours_to_rebook  rebooked_within_1h
+role                                                                    
+CNA            723     0.295                   0.671               0.176
+LVN            168     0.202                   2.479               0.042
+RN              15     0.333                   3.511               0.133
+
+same-role bench at the facility when a late cancellation happens (workers of that role who worked there in the last 30 days):
+       count   25%   50%   75%
+role                          
+CNA   1743.0  24.0  40.0  56.0
+LVN    427.0   6.0  10.0  16.0
+RN      55.0   4.0   6.0   9.0
+share still worked after a late cancellation, by role and same-role bench:
+bench_band    0-5   6-15    16+
+role                           
+CNA         0.136  0.242  0.363
+LVN         0.119  0.180  0.200
+RN          0.217  0.312    NaN
+bench_band  0-5  6-15   16+
+role                       
+CNA          66   186  1491
+LVN         101   206   120
+RN           23    32     0
+
+share still worked after a late cancellation, priced below the facility's norm vs at/above:
+             mean         size      
+below_norm  False  True  False True 
+role                                
+CNA         0.374  0.259  1245   498
+LVN         0.178  0.156   292   135
+RN          0.342  0.118    38    17
+
+refill model on 2,658 cancellations with <72h notice (pseudo-R2 0.093); coefficients:
+                           coef      p
+Intercept                -1.261  0.000
+C(role)[T.LVN]           -0.851  0.004
+C(role)[T.RN]            -0.055  0.932
+C(win)[T.morning]        -0.761  0.000
+C(win)[T.night]          -0.096  0.365
+lognotice                 0.560  0.000
+C(role)[T.LVN]:lognotice -0.157  0.172
+C(role)[T.RN]:lognotice  -0.334  0.150
+
+late failures after the deadline: worked today vs modelled chance if released at the deadline:
+                        after_deadline  worked_today  worked_if_released_at_deadline
+role win                                                                            
+CNA  afternoon/evening             894         0.256                           0.457
+     morning                       788         0.119                           0.355
+     night                         572         0.245                           0.494
+LVN  afternoon/evening             187         0.134                           0.209
+     morning                       155         0.032                           0.136
+     night                          90         0.189                           0.223
+RN   afternoon/evening              17         0.294                           0.296
+     morning                        14         0.214                           0.183
+     night                          18         0.056                           0.295
+
+==================================================================================================================================
+3. WORKERS BY ROLE (Cleveland bookings, Oct-Nov 2021 starts)
+==================================================================================================================================
+role  bookings  workers  bookings_per_worker  also books LVN  also books RN  also books CNA
+ CNA      8387      368               22.791           0.000          0.000             NaN
+ LVN      2016      144               14.000             NaN          0.111             0.0
+  RN       364       43                8.465           0.372            NaN             0.0
+role                                        CNA       LVN       RN
+bookings at 24h                        6606.000  1489.000  257.000
+late-fail rate                            0.131     0.122    0.070
+NCNS rate                                 0.035     0.023    0.016
+not yet proven (A)                        0.490     0.484    0.482
+B 48h drop                                0.126     0.085    0.043
+C first visit                             0.211     0.263    0.226
+checked (A|B|C)                           0.588     0.575    0.525
+NCNS covered                              0.750     0.794    0.750
+<4h covered                               0.820     0.868    0.833
+4-24h covered                             0.747     0.809    0.750
+all late covered                          0.779     0.823    0.778
+late rate checked                         0.173     0.174    0.104
+late rate not checked                     0.070     0.051    0.033
+first-visit risk ratio                    1.504     2.072    0.980
+48h-streak risk ratio                     2.107     2.502    6.390
+proven workers late rate                  0.082     0.060    0.038
+late failures from top 10% of workers     0.437     0.453    0.722
+
+==================================================================================================================================
+4. BASE-CASE IMPACT BY ROLE (30% surface, 5% prevented; per year)
+==================================================================================================================================
+      shifts saved / yr  revenue / yr  share of saved revenue  unfilled per 100 booked today  unfilled per 100 booked after  NCNS + call-offs avoided  revenue per recovered shift
+role                                                                                                                                                                              
+CNA             562.556     32856.739                   0.790                          9.680                          8.647                     0.264                       58.406
+LVN              82.772      7748.073                   0.186                          8.476                          7.885                     0.281                       93.608
+RN                8.314      1012.240                   0.024                          3.870                          3.626                     0.261                      121.752
+all             653.641     41617.051                   1.000                          9.169                          8.260                     0.267                       63.670
+
+==================================================================================================================================
+5. ROLE-SPECIFIC SETTINGS: checks without the first-visit trigger; who already covers LVN shifts
+==================================================================================================================================
+CNA: checked with A|B|C 58.8% (covers 77.9% of late failures) | A|B only 51.7% (covers 70.6%) | first visits: 1397 bookings, 248 late failures
+LVN: checked with A|B|C 57.5% (covers 82.3% of late failures) | A|B only 50.1% (covers 74.6%) | first visits: 392 bookings, 77 late failures
+RN: checked with A|B|C 52.5% (covers 77.8% of late failures) | A|B only 48.6% (covers 72.2%) | first visits: 58 bookings, 4 late failures
+worked LVN shifts done by workers who also book RN shifts: 2.4% of 3,050
+LVN late cancellations re-booked: 34
+
+modelled chance a cancelled shift is still worked, by notice (hours before start):
+notice_h                   2      6      12     24     48
+role win                                                 
+CNA  afternoon/evening  0.344  0.457  0.543  0.632  0.714
+     morning            0.197  0.282  0.357  0.445  0.539
+     night              0.322  0.433  0.520  0.609  0.694
+LVN  afternoon/evening  0.158  0.209  0.254  0.307  0.367
+     morning            0.081  0.110  0.137  0.171  0.213
+     night              0.146  0.194  0.236  0.287  0.345
+RN   afternoon/evening  0.256  0.294  0.324  0.357  0.393
+     morning            0.138  0.163  0.183  0.206  0.232
+     night              0.238  0.274  0.303  0.335  0.370
+CNA: surfacing 30% of covered late failures at 24h instead of at today's deadlines -> 573 vs 353 shifts/yr
+CNA: surfacing 30% of covered late failures at 48h instead of at today's deadlines -> 730 vs 353 shifts/yr
+LVN: surfacing 30% of covered late failures at 24h instead of at today's deadlines -> 48 vs 25 shifts/yr
+LVN: surfacing 30% of covered late failures at 48h instead of at today's deadlines -> 71 vs 25 shifts/yr
+RN: surfacing 30% of covered late failures at 24h instead of at today's deadlines -> 3 vs 3 shifts/yr
+RN: surfacing 30% of covered late failures at 48h instead of at today's deadlines -> 4 vs 3 shifts/yr

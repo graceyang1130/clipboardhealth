@@ -1,0 +1,97 @@
+worker cancels per hour-before-start bin (0-80h):
+lead
+0     3556
+1     3293
+2     2235
+3     1870
+4     1632
+5     1356
+6     1230
+7     1036
+8      876
+9      755
+10     671
+11     635
+12     560
+13     493
+14     530
+15     485
+16     385
+17     397
+18     399
+19     358
+20     346
+21     314
+22     314
+23     347
+24     324
+25     300
+26     270
+27     247
+28     212
+29     207
+30     196
+31     198
+32     179
+33     188
+34     183
+35     169
+36     156
+37     155
+38     165
+39     188
+40     169
+41     176
+42     163
+43     178
+44     157
+45     179
+46     198
+47     189
+48     160
+49     156
+50     125
+51     164
+52     132
+53     114
+54     137
+55     112
+56     102
+57     116
+58     124
+59     104
+60     119
+61     122
+62     115
+63     132
+64     121
+65     141
+66     116
+67     128
+68     123
+69     135
+70     181
+71     170
+72     161
+73     156
+74     143
+75     152
+76     153
+77     121
+78     141
+79     122
+-- around 4h (15-min bins from 2.5h): [542, 517, 467, 489, 466, 448, 417, 403, 416, 396, 341, 308]
+   30min just below 4h: 914 | 30min just above: 820 | ratio above/below 0.90
+-- around 24h (15-min bins from 22.5h): [87, 89, 96, 83, 91, 77, 82, 83, 75, 84, 80, 66]
+   30min just below 24h: 168 | 30min just above: 165 | ratio above/below 0.98
+-- around 72h (15-min bins from 70.5h): [48, 42, 38, 38, 42, 52, 46, 36, 44, 35, 37, 31]
+   30min just below 72h: 94 | 30min just above: 82 | ratio above/below 0.87
+event share by band: {'1_NCNS': 0.146, '2_<4h': 0.142, '3_4-24h': 0.17, '4_24-72h': 0.103, '5_>72h': 0.438}
+workers reaching a deactivation threshold (3 NCNS or 4 call-offs) within Oct-Jan window: 1946  of 9899 workers with events
+  reached threshold before Jan 15: 1444  still booking shifts starting >7d later: 1032 (71.5%)
+  among those, events logged after threshold: {'count': 1027.0, 'mean': 10.9, 'std': 15.6, 'min': 1.0, '25%': 3.0, '50%': 6.0, '75%': 13.0, 'max': 204.0}
+  late failures (NCNS/<24h) on shifts after threshold+7d, by these workers: 5422  share of all late-fail events: 0.153
+1st NCNS logged Oct1-Nov19: 1552  workers who claimed a new shift within 7 days after: 880 (56.7%)
+2nd call-off Oct1-Nov19: 607  claimed within 7 days after: 441 (72.7%)
+late-failure events by policy class: NCNS 0.319  call-off(<4h) 0.31  'standard' 4-24h 0.371
+workers with >=3 NCNS: 1437  >=4 call-offs: 806  >=6 standard: 887

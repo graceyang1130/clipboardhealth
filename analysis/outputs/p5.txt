@@ -1,0 +1,15 @@
+                workers  med_bookings  bookings      lf   ncns           hrs   rate  ncns_rate
+seg                                                                                           
+3+ NCNS             129          48.0    7574.0  1406.0  622.0  28365.103152  0.186      0.082
+no late fail        326           3.0    2492.0     0.0    0.0  15216.830000  0.000      0.000
+rate 15-30%         137          12.0    2841.0   575.0   77.0  11363.090000  0.202      0.027
+rate>=30%           144           4.0    1210.0   486.0   76.0   3150.340000  0.402      0.063
+some late fail      315          35.0   13653.0   842.0  195.0  74912.009432  0.062      0.014
+3+ NCNS workers: ncns rate quartiles {0.25: 0.058, 0.5: 0.1, 0.75: 0.19}  hrs share of those with ncns_rate<5%: 0.081  n: 20
+worked after late cancel, by relative charge: {'below': {'size': 568, 'mean': 0.231}, 'at': {'size': 913, 'mean': 0.313}, '+0-10%': {'size': 220, 'mean': 0.355}, '>+10%': {'size': 524, 'mean': 0.359}}
+worked after late cancel, by shift type: {'am': {'size': 711, 'mean': 0.215}, 'custom': {'size': 37, 'mean': 0.297}, 'noc': {'size': 705, 'mean': 0.37}, 'pm': {'size': 772, 'mean': 0.334}}
+worked after late cancel, by role: {'CNA': {'size': 1743, 'mean': 0.341}, 'LVN': {'size': 427, 'mean': 0.171}, 'RN': {'size': 55, 'mean': 0.273}}
+booked Cleveland shifts deleted by facility while a worker was assigned: 0.176
+NCNS: first-at-fac 0.322, tenure<30d 0.195, booked<72h 0.383, median booking lead 104h, median worker claims 1
+late cancel: first-at-fac 0.335, tenure<30d 0.200, booked<72h 0.372, median booking lead 104h, median worker claims 2
+kept: first-at-fac 0.211, tenure<30d 0.152, booked<72h 0.279, median booking lead 144h, median worker claims 9

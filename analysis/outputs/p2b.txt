@@ -1,0 +1,45 @@
+== by booking lead time
+       claims  any_cancel  late_fail    ncns  cancel_gt72   share
+blb                                                              
+<4h      2679      0.0881     0.0881  0.0504       0.0000  0.0219
+4-24h   10300      0.1540     0.1540  0.0500       0.0000  0.0842
+1-3d    19355      0.1847     0.1486  0.0460       0.0000  0.1582
+3-7d    33720      0.1829     0.1133  0.0347       0.0407  0.2756
+1-2wk   31532      0.2312     0.0821  0.0266       0.1295  0.2577
+2-4wk   22568      0.2852     0.0580  0.0191       0.2155  0.1844
+4wk+     2208      0.2491     0.0480  0.0195       0.1884  0.0180
+  P(late fail | active at T-24h) by booking lead: {'1-3d': 0.1542, '3-7d': 0.1218, '1-2wk': 0.0965, '2-4wk': 0.0751, '4wk+': 0.0601}
+== by # other active holds at claim time
+      claims  any_cancel  late_fail    ncns
+h                                          
+0      16892      0.2234     0.1430  0.0433
+1-2    26905      0.2142     0.1209  0.0371
+3-5    29197      0.1937     0.0955  0.0314
+6-10   24791      0.2081     0.0879  0.0305
+11+    24577      0.2233     0.0769  0.0253
+== time-slot conflicts (worker held 2+ shifts starting within 4h of each other)
+claims in conflict: 11407 (9.3%)
+          claims  any_cancel  late_fail    ncns      lc
+conflict                                               
+False     110955      0.2232     0.1064  0.0339  0.0725
+True       11407      0.0940     0.0631  0.0228  0.0403
+share of late failures where worker held a conflicting shift: 0.057  ...and kept the other one: 0.057
+   1_NCNS: n=4023 conflict=0.065 kept_other=0.064
+   2_<4h: n=3882 conflict=0.059 kept_other=0.058
+   3_4-24h: n=4618 conflict=0.050 kept_other=0.049
+   4_24-72h: n=2583 conflict=0.041 kept_other=0.040
+   5_>72h: n=10735 conflict=0.023 kept_other=0.022
+== switching: cancel + new claim on same time slot within [-24h,+2h] of cancel
+              n  switch  switch_and_worked_other
+band                                            
+2_<4h      3882   0.008                    0.007
+3_4-24h    4618   0.018                    0.015
+4_24-72h   2583   0.035                    0.028
+5_>72h    10735   0.053                    0.035
+== prior shift within ~0-8h before (back-to-back/short rest)
+            claims  late_fail    ncns      lc
+prior_kept                                   
+False        95315     0.1114  0.0346  0.0768
+True         27047     0.0704  0.0267  0.0437
+== within-worker: late-fail rate minus worker's own mean, by booking lead
+{'<4h': -0.0195, '4-24h': 0.0282, '1-3d': 0.0259, '3-7d': 0.01, '1-2wk': -0.0098, '2-4wk': -0.0269, '4wk+': -0.0257}
